@@ -1,0 +1,31 @@
+/* Manual Review Manager Admin Styles */
+
+.mrm-modal {
+    z-index: 100000;
+}
+
+.mrm-star-rating {
+    display: inline-block;
+}
+
+.mrm-star {
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.mrm-empty-state {
+    text-align: center;
+    padding: 40px;
+}
+
+.mrm-form-container {
+    display: grid;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .mrm-form-container {
+        grid-template-columns: 2fr 1fr;
+    }
+} 
