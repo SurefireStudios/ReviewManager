@@ -13,7 +13,8 @@ $display_settings = get_option('mrm_display_settings', array(
     'show_platform' => 1,
     'max_reviews' => 10,
     'min_rating' => 1,
-    'color_theme' => 'light'
+    'color_theme' => 'light',
+    'photo_size' => 'small'
 ));
 ?>
 
@@ -36,6 +37,24 @@ $display_settings = get_option('mrm_display_settings', array(
                     </label>
                 </td>
             </tr>
+            
+            <tr>
+                <th scope="row"><?php _e('Reviewer Photo Size', 'manual-review-manager'); ?></th>
+                <td>
+                    <select name="mrm_display_settings[photo_size]">
+                        <option value="small" <?php selected(isset($display_settings['photo_size']) ? $display_settings['photo_size'] : 'small', 'small'); ?>>
+                            <?php _e('Small Photos (Compact Layout)', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="large" <?php selected(isset($display_settings['photo_size']) ? $display_settings['photo_size'] : 'small', 'large'); ?>>
+                            <?php _e('Large Photos (Hero Layout)', 'manual-review-manager'); ?>
+                        </option>
+                    </select>
+                    <p class="description">
+                        <?php _e('Small: Compact horizontal layout with small profile photos. Large: Vertical layout with large photos filling the review container width.', 'manual-review-manager'); ?>
+                    </p>
+                </td>
+            </tr>
+            
             
             <tr>
                 <th scope="row"><?php _e('Show Review Dates', 'manual-review-manager'); ?></th>
@@ -147,6 +166,10 @@ $display_settings = get_option('mrm_display_settings', array(
         <code>[review_stats]</code>
         <p><?php _e('Shows total reviews, average rating, and rating breakdown', 'manual-review-manager'); ?></p>
         
+        <h3><?php _e('Large Photo Layout', 'manual-review-manager'); ?></h3>
+        <code>[review_manager photo_size="large" layout="grid" columns="2"]</code>
+        <p><?php _e('Shows reviews with large hero-style photos in a vertical layout', 'manual-review-manager'); ?></p>
+        
         <h3><?php _e('Dark Theme Override', 'manual-review-manager'); ?></h3>
         <code>[review_manager theme="dark" layout="grid" columns="2"]</code>
         <p><?php _e('Forces dark theme regardless of global setting - perfect for specific sections', 'manual-review-manager'); ?></p>
@@ -214,4 +237,4 @@ $display_settings = get_option('mrm_display_settings', array(
 .mrm-preview-container:last-child {
     margin-bottom: 0;
 }
-</style> 
+</style>

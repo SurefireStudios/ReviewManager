@@ -58,7 +58,8 @@ class ManualReviewManager {
             'show_dates' => 1,
             'show_platform' => 1,
             'max_reviews' => 10,
-            'min_rating' => 1
+            'min_rating' => 1,
+            'photo_size' => 'small'
         ));
     }
     

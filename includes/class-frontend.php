@@ -118,8 +118,13 @@ class MRM_Frontend {
         $theme = !empty($args['theme']) ? $args['theme'] : (isset($display_settings['color_theme']) ? $display_settings['color_theme'] : 'light');
         $theme_class = $theme !== 'light' ? 'mrm-theme-' . esc_attr($theme) : '';
         
+        // Get photo size setting - shortcode parameter overrides global setting
+        $photo_size = !empty($args['photo_size']) ? $args['photo_size'] : (isset($display_settings['photo_size']) ? $display_settings['photo_size'] : 'small');
+        $photo_size_class = $photo_size === 'large' ? 'mrm-large-photos' : '';
+        
         $container_id = 'mrm-container-' . uniqid();
-        $output = '<div class="mrm-review-container ' . $theme_class . '" id="' . $container_id . '" data-args="' . esc_attr(json_encode($args)) . '" data-offset="' . count($reviews) . '">';
+        $container_classes = 'mrm-review-container ' . $theme_class . ' ' . $photo_size_class;
+        $output = '<div class="' . trim($container_classes) . '" id="' . $container_id . '" data-args="' . esc_attr(json_encode($args)) . '" data-offset="' . count($reviews) . '">';
         
         switch ($args['layout']) {
             case 'list':
@@ -265,7 +270,8 @@ class MRM_Frontend {
     
     private function render_review_item($review, $args, $layout = 'grid') {
         $truncate = intval($args['truncate']);
-        $review_text = $truncate > 0 ? wp_trim_words($review->review_text, $truncate) : $review->review_text;
+        $clean_review_text = stripslashes($review->review_text);
+        $review_text = $truncate > 0 ? wp_trim_words($clean_review_text, $truncate) : $clean_review_text;
         
         $output = '<div class="mrm-review-item mrm-review-' . $layout . '" data-rating="' . $review->rating . '">';
         
@@ -278,7 +284,7 @@ class MRM_Frontend {
             }
             
             $output .= '<div class="mrm-reviewer-info">';
-            $output .= '<h4 class="mrm-reviewer-name">' . esc_html(stripslashes($review->reviewer_name)) . '</h4>';
+            $output .= '<h3 class="mrm-reviewer-name">' . esc_html(stripslashes($review->reviewer_name)) . '</h3>';
             
             // Rating stars
             $output .= '<div class="mrm-rating">';
@@ -295,7 +301,7 @@ class MRM_Frontend {
         // Review content  
         $output .= '<div class="mrm-review-content">';
         
-        $full_text = stripslashes($review->review_text);
+        $full_text = $clean_review_text;
         $text_length = strlen($full_text);
         $max_length = 200; // Characters to show before "Read More"
         
@@ -507,14 +513,14 @@ class MRM_Frontend {
                 '@type' => 'Review',
                 'author' => array(
                     '@type' => 'Person',
-                    'name' => $review->reviewer_name
+                    'name' => stripslashes($review->reviewer_name)
                 ),
                 'reviewRating' => array(
                     '@type' => 'Rating',
                     'ratingValue' => $review->rating,
                     'bestRating' => 5
                 ),
-                'reviewBody' => $review->review_text,
+                'reviewBody' => stripslashes($review->review_text),
                 'datePublished' => $review->review_date
             );
             

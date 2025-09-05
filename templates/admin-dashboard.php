@@ -53,19 +53,19 @@ if (!defined('ABSPATH')) {
         <!-- Bulk Text Replacement -->
         <div class="mrm-dashboard-section">
             <h2><?php _e('Bulk Text Replacement', 'manual-review-manager'); ?></h2>
-            <p><?php _e('Replace text across all reviews (e.g., change "Kuk Sool Won" to "Dragon Mu Sool").', 'manual-review-manager'); ?></p>
+            <p><?php _e('Replace text across all reviews (e.g., change "Old Business Name" to "New Business Name").', 'manual-review-manager'); ?></p>
             <form id="bulk-replace-form">
                 <table class="form-table">
                     <tr>
                         <th scope="row"><?php _e('Search for', 'manual-review-manager'); ?></th>
                         <td>
-                            <input type="text" id="search-text" class="regular-text" placeholder="<?php _e('e.g., Kuk Sool Won', 'manual-review-manager'); ?>" />
+                            <input type="text" id="search-text" class="regular-text" placeholder="<?php _e('e.g., Old Business Name', 'manual-review-manager'); ?>" />
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"><?php _e('Replace with', 'manual-review-manager'); ?></th>
                         <td>
-                            <input type="text" id="replace-text" class="regular-text" placeholder="<?php _e('e.g., Dragon Mu Sool', 'manual-review-manager'); ?>" />
+                            <input type="text" id="replace-text" class="regular-text" placeholder="<?php _e('e.g., New Business Name', 'manual-review-manager'); ?>" />
                         </td>
                     </tr>
                     <tr>

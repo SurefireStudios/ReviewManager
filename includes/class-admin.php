@@ -175,6 +175,17 @@ class MRM_Admin {
             $sanitized['min_rating'] = absint($input['min_rating']);
         }
         
+        if (isset($input['color_theme'])) {
+            $valid_themes = array('light', 'dark', 'auto');
+            $sanitized['color_theme'] = in_array($input['color_theme'], $valid_themes) ? $input['color_theme'] : 'light';
+        }
+        
+        if (isset($input['photo_size'])) {
+            $valid_sizes = array('small', 'large');
+            $sanitized['photo_size'] = in_array($input['photo_size'], $valid_sizes) ? $input['photo_size'] : 'small';
+        }
+        
+        
         return $sanitized;
     }
     

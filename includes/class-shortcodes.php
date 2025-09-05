@@ -22,7 +22,7 @@ class MRM_Shortcodes {
     
     /**
      * Main review display shortcode
-     * [review_manager layout="grid" columns="3" max_reviews="10" min_rating="1" platform="all" location_id="0" sort_by="review_date" order="DESC" show_photos="true" show_dates="true" show_platform="true" truncate="50"]
+     * [review_manager layout="grid" columns="3" max_reviews="10" min_rating="1" platform="all" location_id="0" sort_by="review_date" order="DESC" show_photos="true" show_dates="true" show_platform="true" truncate="50" photo_size="small"]
      */
     public function review_manager_shortcode($atts) {
         $atts = shortcode_atts(array(
@@ -38,7 +38,8 @@ class MRM_Shortcodes {
             'show_dates' => 'true',
             'show_platform' => 'true',
             'truncate' => '50',
-            'theme' => ''
+            'theme' => '',
+            'photo_size' => ''
         ), $atts, 'review_manager');
         
         // Convert string booleans to actual booleans
@@ -76,7 +77,8 @@ class MRM_Shortcodes {
             'show_dates' => 'true',
             'show_platform' => 'true',
             'truncate' => '50',
-            'theme' => ''
+            'theme' => '',
+            'photo_size' => ''
         ), $atts, 'review_slider');
         
         // Force layout to slider
@@ -121,7 +123,8 @@ class MRM_Shortcodes {
             'show_dates' => 'true',
             'show_platform' => 'true',
             'truncate' => '50',
-            'theme' => ''
+            'theme' => '',
+            'photo_size' => ''
         ), $atts, 'review_grid_slider');
         
         // Force layout to grid_slider
