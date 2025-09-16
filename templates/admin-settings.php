@@ -118,6 +118,52 @@ $display_settings = get_option('mrm_display_settings', array(
                     <p class="description"><?php _e('Only show reviews with this rating or higher', 'manual-review-manager'); ?></p>
                 </td>
             </tr>
+            
+            <tr>
+                <th scope="row"><?php _e('Button Color Theme', 'manual-review-manager'); ?></th>
+                <td>
+                    <select name="mrm_display_settings[button_color]">
+                        <option value="blue" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'blue'); ?>>
+                            <?php _e('Blue (Default)', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="black" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'black'); ?>>
+                            <?php _e('Black', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="red" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'red'); ?>>
+                            <?php _e('Red', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="green" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'green'); ?>>
+                            <?php _e('Green', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="purple" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'purple'); ?>>
+                            <?php _e('Purple', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="orange" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'orange'); ?>>
+                            <?php _e('Orange', 'manual-review-manager'); ?>
+                        </option>
+                        <option value="grey" <?php selected(isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue', 'grey'); ?>>
+                            <?php _e('Grey', 'manual-review-manager'); ?>
+                        </option>
+                    </select>
+                    <p class="description">
+                        <?php _e('Choose the color theme for "Leave Your Own Review", "Read More", and other action buttons.', 'manual-review-manager'); ?>
+                    </p>
+                </td>
+            </tr>
+            
+            <tr>
+                <th scope="row"><?php _e('Review Submission Redirect URL', 'manual-review-manager'); ?></th>
+                <td>
+                    <input type="url" 
+                           name="mrm_display_settings[redirect_after_review]" 
+                           value="<?php echo esc_attr(isset($display_settings['redirect_after_review']) ? $display_settings['redirect_after_review'] : home_url()); ?>" 
+                           class="regular-text" 
+                           placeholder="<?php echo esc_attr(home_url()); ?>" />
+                    <p class="description">
+                        <?php _e('URL to redirect users to after successfully submitting a review. Leave empty or use default to redirect to homepage.', 'manual-review-manager'); ?>
+                    </p>
+                </td>
+            </tr>
         </table>
         
         <?php submit_button(); ?>

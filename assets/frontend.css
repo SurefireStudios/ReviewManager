@@ -154,6 +154,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* Clear floated buttons */
 }
 
 .mrm-review-text {
@@ -252,6 +253,13 @@
     margin-top: 10px;
     align-self: flex-start;
     flex-shrink: 0;
+}
+
+/* Align Read More button to the right */
+.mrm-read-more-btn {
+    float: right;
+    clear: both;
+    align-self: flex-end;
 }
 
 .mrm-read-more-btn:hover, .mrm-view-more-btn:hover {
@@ -642,4 +650,31 @@
     .mrm-review-container.mrm-large-photos .mrm-star {
         font-size: 14px;
     }
+}
+
+/* Review Button Styles */
+.mrm-review-button-container {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.mrm-submit-review-btn {
+    display: inline-block;
+    background: #007cba;
+    color: white;
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.mrm-submit-review-btn:hover {
+    background: #005a87;
+    text-decoration: none;
+    color: white;
 } 

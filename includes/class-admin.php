@@ -21,6 +21,7 @@ class MRM_Admin {
         add_action('wp_ajax_mrm_get_review', array($this, 'ajax_get_review'));
         add_action('wp_ajax_mrm_load_more_reviews', array($this, 'ajax_load_more_reviews'));
         add_action('wp_ajax_nopriv_mrm_load_more_reviews', array($this, 'ajax_load_more_reviews'));
+        add_action('wp_ajax_mrm_approve_review', array($this, 'ajax_approve_review'));
     }
     
     public function add_admin_menu() {
@@ -99,7 +100,12 @@ class MRM_Admin {
     public function dashboard_page() {
         $stats = MRM_Database::get_review_stats();
         $locations = MRM_Database::get_locations();
-        $recent_reviews = MRM_Database::get_reviews(array('max_reviews' => 5));
+        $recent_reviews = MRM_Database::get_reviews(array(
+            'max_reviews' => 10,
+            'approved_only' => false, // Show both approved and pending reviews
+            'sort_by' => 'created_at', // Sort by newest submissions first
+            'order' => 'DESC'
+        ));
         
         include MRM_PLUGIN_DIR . 'templates/admin-dashboard.php';
     }
@@ -185,6 +191,15 @@ class MRM_Admin {
             $sanitized['photo_size'] = in_array($input['photo_size'], $valid_sizes) ? $input['photo_size'] : 'small';
         }
         
+        if (isset($input['redirect_after_review'])) {
+            $url = esc_url_raw($input['redirect_after_review']);
+            $sanitized['redirect_after_review'] = !empty($url) ? $url : home_url();
+        }
+        
+        if (isset($input['button_color'])) {
+            $valid_colors = array('blue', 'black', 'red', 'green', 'purple', 'orange', 'grey');
+            $sanitized['button_color'] = in_array($input['button_color'], $valid_colors) ? $input['button_color'] : 'blue';
+        }
         
         return $sanitized;
     }
@@ -460,10 +475,37 @@ class MRM_Admin {
                     <path fill="#666" d="M9 2v2h6V2h2v2h1a1 1 0 011 1v14a1 1 0 01-1 1H6a1 1 0 01-1-1V5a1 1 0 011-1h1V2h2zm0 8v2h2v-2H9zm0 4v2h2v-2H9zm4-4v2h2v-2h-2z"/>
                 </svg>';
                 
+            case 'user_submitted':
+                return '<svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#50c878" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>';
+                
             default:
                 return '<svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#666" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>';
+        }
+    }
+    
+    public function ajax_approve_review() {
+        check_ajax_referer('mrm_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(__('Permission denied.', 'manual-review-manager'));
+        }
+        
+        $review_id = intval($_POST['review_id']);
+        
+        if (!$review_id) {
+            wp_send_json_error(__('Invalid review ID.', 'manual-review-manager'));
+        }
+        
+        $result = MRM_Database::update_review($review_id, array('is_approved' => 1));
+        
+        if ($result !== false) {
+            wp_send_json_success(__('Review approved successfully.', 'manual-review-manager'));
+        } else {
+            wp_send_json_error(__('Failed to approve review.', 'manual-review-manager'));
         }
     }
 } 

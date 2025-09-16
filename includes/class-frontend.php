@@ -12,6 +12,7 @@ class MRM_Frontend {
     public function __construct() {
         add_action('wp_enqueue_scripts', array($this, 'enqueue_frontend_scripts'));
         add_action('wp_head', array($this, 'add_structured_data'));
+        add_action('wp_head', array($this, 'add_button_color_styles'));
     }
     
     public function enqueue_frontend_scripts() {
@@ -33,9 +34,14 @@ class MRM_Frontend {
             return has_shortcode($post->post_content, 'review_manager') || 
                    has_shortcode($post->post_content, 'review_slider') || 
                    has_shortcode($post->post_content, 'review_grid_slider') || 
-                   has_shortcode($post->post_content, 'review_stats');
+                   has_shortcode($post->post_content, 'review_stats') ||
+                   $this->has_review_widget();
         }
-        return false;
+        return $this->has_review_widget();
+    }
+    
+    private function has_review_widget() {
+        return is_active_widget(false, false, 'mrm_latest_reviews_widget');
     }
     
     public function display_reviews($args = array()) {
@@ -485,6 +491,11 @@ class MRM_Frontend {
                     <path fill="#FFFFFF" d="M16.671 15.543l.532-3.47h-3.328v-2.25c0-.949.465-1.874 1.956-1.874h1.513V4.996s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.142H7.078v3.47h3.047v8.385a12.118 12.118 0 003.75 0v-8.385h2.796z"/>
                 </svg>';
                 
+            case 'user_submitted':
+                return '<svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#50c878" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>';
+                
             default:
                 return '<svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#666" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -532,5 +543,57 @@ class MRM_Frontend {
         }
         
         echo '<script type="application/ld+json">' . json_encode($structured_data) . '</script>';
+    }
+    
+    public function add_button_color_styles() {
+        if (!$this->has_review_shortcode()) {
+            return;
+        }
+        
+        $display_settings = get_option('mrm_display_settings', array());
+        $button_color = isset($display_settings['button_color']) ? $display_settings['button_color'] : 'blue';
+        
+        $color_schemes = array(
+            'blue' => array('bg' => '#007cba', 'hover' => '#005a87'),
+            'black' => array('bg' => '#333333', 'hover' => '#1a1a1a'),
+            'red' => array('bg' => '#dc3545', 'hover' => '#c82333'),
+            'green' => array('bg' => '#28a745', 'hover' => '#218838'),
+            'purple' => array('bg' => '#6f42c1', 'hover' => '#5a32a3'),
+            'orange' => array('bg' => '#fd7e14', 'hover' => '#e55100'),
+            'grey' => array('bg' => '#6c757d', 'hover' => '#545b62')
+        );
+        
+        $colors = isset($color_schemes[$button_color]) ? $color_schemes[$button_color] : $color_schemes['blue'];
+        
+        echo '<style>
+        :root {
+            --mrm-button-bg: ' . $colors['bg'] . ';
+            --mrm-button-hover: ' . $colors['hover'] . ';
+        }
+        
+        /* Review submission button */
+        .mrm-submit-review-btn {
+            background: ' . $colors['bg'] . ' !important;
+        }
+        .mrm-submit-review-btn:hover {
+            background: ' . $colors['hover'] . ' !important;
+        }
+        
+        /* Form buttons */
+        .mrm-submit-btn {
+            background: ' . $colors['bg'] . ' !important;
+        }
+        .mrm-submit-btn:hover:not(:disabled) {
+            background: ' . $colors['hover'] . ' !important;
+        }
+        
+        /* Success message buttons */
+        .mrm-success-message .mrm-back-btn {
+            background: ' . $colors['bg'] . ' !important;
+        }
+        .mrm-success-message .mrm-back-btn:hover {
+            background: ' . $colors['hover'] . ' !important;
+        }
+        </style>';
     }
 } 

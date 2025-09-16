@@ -1,0 +1,336 @@
+/* Review Form Styles */
+.mrm-review-form-container {
+    max-width: 600px;
+    margin: 150px auto 200px auto; /* Increased top/bottom margins for more viewport coverage */
+    padding: 3rem; /* Increased internal padding for better spacing */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-height: calc(100vh - 400px); /* Ensure it takes up most of the viewport */
+}
+
+.mrm-review-form-container h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.mrm-success-message {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 2rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.mrm-success-message .mrm-back-btn {
+    display: inline-block;
+    margin: 1rem 0.5rem 0 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #007cba;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    min-width: 160px;
+}
+
+.mrm-success-message p {
+    margin-bottom: 1.5rem;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.mrm-success-message .mrm-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.mrm-success-message .mrm-back-btn:hover {
+    background: #005a87;
+}
+
+.mrm-form-group {
+    margin-bottom: 1.5rem;
+}
+
+.mrm-form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.mrm-form-group .required {
+    color: #e74c3c;
+}
+
+.mrm-form-group input[type="text"],
+.mrm-form-group input[type="email"],
+.mrm-form-group select,
+.mrm-form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.mrm-form-group input:focus,
+.mrm-form-group select:focus,
+.mrm-form-group textarea:focus {
+    outline: none;
+    border-color: #007cba;
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+}
+
+.mrm-form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Star Rating */
+.mrm-star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    gap: 5px;
+}
+
+.mrm-star-rating input {
+    display: none;
+}
+
+.mrm-star-label {
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+}
+
+.mrm-star-rating input:checked ~ .mrm-star-label,
+.mrm-star-rating .mrm-star-label:hover,
+.mrm-star-rating .mrm-star-label:hover ~ .mrm-star-label {
+    color: #ffc107;
+}
+
+.mrm-rating-text {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    min-height: 1.2rem;
+}
+
+/* Photo Upload */
+.mrm-photo-upload {
+    position: relative;
+}
+
+.mrm-photo-upload input[type="file"] {
+    padding: 0.5rem 0;
+}
+
+.mrm-photo-preview {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.mrm-photo-preview img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+.mrm-remove-photo {
+    display: block;
+    margin: 0.5rem auto 0;
+    padding: 0.5rem 1rem;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px; /* Increased font size */
+    font-weight: 500;
+}
+
+.mrm-remove-photo:hover {
+    background: #c82333;
+}
+
+.mrm-upload-instructions {
+    margin-top: 0.5rem;
+}
+
+.mrm-upload-instructions p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Form Actions */
+.mrm-form-actions {
+    margin-top: 2rem;
+    text-align: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.mrm-submit-btn {
+    background: #007cba;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px; /* Increased font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.mrm-submit-btn:hover:not(:disabled) {
+    background: #005a87;
+}
+
+.mrm-submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.mrm-cancel-btn {
+    color: #666;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 20px; /* Increased font size to match submit button */
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.mrm-cancel-btn:hover {
+    background: #f8f9fa;
+    text-decoration: none;
+}
+
+/* Review Button Container */
+.mrm-review-button-container {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.mrm-submit-review-btn {
+    display: inline-block;
+    background: #007cba;
+    color: white;
+    padding: 0.75rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.mrm-submit-review-btn:hover {
+    background: #005a87;
+    text-decoration: none;
+    color: white;
+}
+
+/* Error Messages */
+.mrm-error-message {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* Loading State */
+.mrm-form-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.mrm-form-loading .mrm-submit-btn::after {
+    content: "...";
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ""; }
+    40% { content: "."; }
+    60% { content: ".."; }
+    80%, 100% { content: "..."; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mrm-review-form-container {
+        margin: 100px 1rem 150px 1rem; /* Adjusted responsive margins for better coverage */
+        padding: 2rem; /* Better padding for tablet */
+        min-height: calc(100vh - 300px); /* Adjusted for tablet */
+    }
+    
+    .mrm-form-actions {
+        flex-direction: column;
+    }
+    
+    .mrm-star-label {
+        font-size: 1.8rem;
+    }
+    
+    .mrm-submit-btn,
+    .mrm-cancel-btn {
+        font-size: 18px; /* Slightly smaller on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .mrm-review-form-container {
+        margin: 75px 1rem 125px 1rem; /* Better mobile margins for viewport coverage */
+        padding: 1.5rem; /* Better mobile padding */
+        min-height: calc(100vh - 250px); /* Ensure good mobile coverage */
+    }
+    
+    .mrm-star-label {
+        font-size: 1.5rem;
+    }
+    
+    .mrm-submit-btn,
+    .mrm-cancel-btn {
+        font-size: 16px; /* Even smaller on very small screens */
+        padding: 0.6rem 1.5rem;
+    }
+    
+    .mrm-remove-photo {
+        font-size: 16px;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .mrm-success-message .mrm-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .mrm-success-message .mrm-back-btn {
+        width: 100%;
+        max-width: 200px;
+        text-align: center;
+    }
+}

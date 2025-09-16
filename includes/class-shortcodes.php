@@ -22,7 +22,7 @@ class MRM_Shortcodes {
     
     /**
      * Main review display shortcode
-     * [review_manager layout="grid" columns="3" max_reviews="10" min_rating="1" platform="all" location_id="0" sort_by="review_date" order="DESC" show_photos="true" show_dates="true" show_platform="true" truncate="50" photo_size="small"]
+     * [review_manager layout="grid" columns="3" max_reviews="10" min_rating="1" platform="all" location_id="0" sort_by="review_date" order="DESC" show_photos="true" show_dates="true" show_platform="true" truncate="50" photo_size="small" show_review_button="false"]
      */
     public function review_manager_shortcode($atts) {
         $atts = shortcode_atts(array(
@@ -39,7 +39,8 @@ class MRM_Shortcodes {
             'show_platform' => 'true',
             'truncate' => '50',
             'theme' => '',
-            'photo_size' => ''
+            'photo_size' => '',
+            'show_review_button' => 'false'
         ), $atts, 'review_manager');
         
         // Convert string booleans to actual booleans
@@ -54,7 +55,30 @@ class MRM_Shortcodes {
         $atts['location_id'] = intval($atts['location_id']);
         $atts['truncate'] = intval($atts['truncate']);
         
-        return $this->frontend->display_reviews($atts);
+        $output = $this->frontend->display_reviews($atts);
+        
+        // Add review button if enabled and user is logged in
+        if (filter_var($atts['show_review_button'], FILTER_VALIDATE_BOOLEAN) && is_user_logged_in()) {
+            $output .= $this->render_review_button($atts);
+        }
+        
+        return $output;
+    }
+    
+    private function render_review_button($atts) {
+        $location_id = intval($atts['location_id']);
+        $review_page_url = add_query_arg(array(
+            'mrm_action' => 'submit_review',
+            'location_id' => $location_id
+        ), get_permalink());
+        
+        $output = '<div class="mrm-review-button-container">';
+        $output .= '<a href="' . esc_url($review_page_url) . '" class="mrm-submit-review-btn">';
+        $output .= __('Leave Your Own Review', 'manual-review-manager');
+        $output .= '</a>';
+        $output .= '</div>';
+        
+        return $output;
     }
     
     /**

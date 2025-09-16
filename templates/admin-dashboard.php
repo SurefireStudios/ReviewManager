@@ -34,6 +34,101 @@ if (!defined('ABSPATH')) {
     </div>
     
     <div class="mrm-dashboard-content">
+        <!-- All Reviews - Now at the top for easy management -->
+        <div class="mrm-dashboard-section mrm-all-reviews-section">
+            <h2><?php _e('📋 All Reviews', 'manual-review-manager'); ?></h2>
+            <?php if (!empty($recent_reviews)): ?>
+                <div class="mrm-reviews-table-container">
+                    <table class="wp-list-table widefat fixed striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 140px;"><?php _e('Reviewer', 'manual-review-manager'); ?></th>
+                                <th style="width: 80px;"><?php _e('Rating', 'manual-review-manager'); ?></th>
+                                <th><?php _e('Review Text', 'manual-review-manager'); ?></th>
+                                <th style="width: 130px;"><?php _e('Platform', 'manual-review-manager'); ?></th>
+                                <th style="width: 90px;"><?php _e('Status', 'manual-review-manager'); ?></th>
+                                <th style="width: 180px;"><?php _e('Actions', 'manual-review-manager'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($recent_reviews as $review): ?>
+                                <tr>
+                                    <td>
+                                        <strong><?php echo esc_html(stripslashes($review->reviewer_name)); ?></strong>
+                                        <?php if (!empty($review->location_name)): ?>
+                                            <br><small><?php echo esc_html($review->location_name); ?></small>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <div style="color: #ffa500;">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <?php echo $i <= $review->rating ? '★' : '☆'; ?>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <small>(<?php echo number_format($review->rating, 1); ?>)</small>
+                                    </td>
+                                        <td>
+                                            <div style="max-width: 450px; max-height: 120px; overflow-y: auto; padding: 5px;">
+                                                <?php echo esc_html(stripslashes($review->review_text)); ?>
+                                            </div>
+                                        </td>
+                                    <td>
+                                        <span class="mrm-platform mrm-platform-<?php echo esc_attr($review->platform); ?>">
+                                            <?php echo ucfirst(str_replace('_', ' ', $review->platform)); ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <?php if ($review->is_approved): ?>
+                                            <span style="color: #46b450;">✓ <?php _e('Approved', 'manual-review-manager'); ?></span>
+                                        <?php else: ?>
+                                            <span style="color: #dc3232;">✗ <?php _e('Pending', 'manual-review-manager'); ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($review->platform === 'user_submitted' && !$review->is_approved): ?>
+                                            <button class="button button-small button-primary approve-review-btn" 
+                                                    data-review-id="<?php echo $review->id; ?>"
+                                                    title="<?php _e('Approve this review', 'manual-review-manager'); ?>">
+                                                <?php _e('Approve', 'manual-review-manager'); ?>
+                                            </button>
+                                            <button class="button button-small button-link-delete reject-review-btn" 
+                                                    data-review-id="<?php echo $review->id; ?>"
+                                                    title="<?php _e('Reject this review', 'manual-review-manager'); ?>">
+                                                <?php _e('Reject', 'manual-review-manager'); ?>
+                                            </button>
+                                        <?php else: ?>
+                                            <a href="<?php echo admin_url('admin.php?page=mrm-add-review&edit=' . $review->id); ?>" 
+                                               class="button button-small">
+                                                <?php _e('Edit', 'manual-review-manager'); ?>
+                                            </a>
+                                        <?php endif; ?>
+                                        <button class="button button-small button-link-delete delete-review-btn" 
+                                                data-review-id="<?php echo $review->id; ?>"
+                                                title="<?php _e('Delete this review', 'manual-review-manager'); ?>">
+                                            <?php _e('Delete', 'manual-review-manager'); ?>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 15px;">
+                    <a href="<?php echo admin_url('admin.php?page=mrm-reviews'); ?>" class="button">
+                        <?php _e('View Full Review Manager', 'manual-review-manager'); ?> →
+                    </a>
+                </p>
+            <?php else: ?>
+                <div class="mrm-empty-state">
+                    <h3><?php _e('No reviews yet', 'manual-review-manager'); ?></h3>
+                    <p><?php _e('Start by adding your first review manually.', 'manual-review-manager'); ?></p>
+                    <a href="<?php echo admin_url('admin.php?page=mrm-add-review'); ?>" class="button button-primary">
+                        <?php _e('Add First Review', 'manual-review-manager'); ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
+
         <!-- Quick Actions -->
         <div class="mrm-dashboard-section">
             <h2><?php _e('Quick Actions', 'manual-review-manager'); ?></h2>
@@ -86,58 +181,6 @@ if (!defined('ABSPATH')) {
             </form>
         </div>
         
-        <!-- Recent Reviews -->
-        <div class="mrm-dashboard-section">
-            <h2><?php _e('Recent Reviews', 'manual-review-manager'); ?></h2>
-            <?php if (!empty($recent_reviews)): ?>
-                <div class="mrm-recent-reviews">
-                    <?php foreach ($recent_reviews as $review): ?>
-                        <div class="mrm-review-item">
-                            <div class="mrm-review-header">
-                                <strong><?php echo esc_html($review->reviewer_name); ?></strong>
-                                <span class="mrm-rating">
-                                    <?php 
-                                    for ($i = 1; $i <= 5; $i++) {
-                                        echo $i <= $review->rating ? '★' : '☆';
-                                    }
-                                    ?>
-                                </span>
-                                <span class="mrm-platform mrm-platform-<?php echo esc_attr($review->platform); ?>">
-                                    <?php echo ucfirst($review->platform); ?>
-                                </span>
-                            </div>
-                            <div class="mrm-review-text">
-                                <?php echo esc_html(wp_trim_words($review->review_text, 20)); ?>
-                            </div>
-                            <div class="mrm-review-meta">
-                                <span><?php echo esc_html($review->location_name); ?></span> •
-                                <span><?php echo date_i18n(get_option('date_format'), strtotime($review->review_date)); ?></span>
-                                <?php if ($review->is_edited): ?>
-                                    • <span class="mrm-edited"><?php _e('Edited', 'manual-review-manager'); ?></span>
-                                <?php endif; ?>
-                                <a href="<?php echo admin_url('admin.php?page=mrm-add-review&edit=' . $review->id); ?>" class="mrm-edit-link">
-                                    <?php _e('Edit', 'manual-review-manager'); ?>
-                                </a>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <p>
-                    <a href="<?php echo admin_url('admin.php?page=mrm-reviews'); ?>">
-                        <?php _e('View All Reviews', 'manual-review-manager'); ?> →
-                    </a>
-                </p>
-            <?php else: ?>
-                <div class="mrm-empty-state">
-                    <h3><?php _e('No reviews yet', 'manual-review-manager'); ?></h3>
-                    <p><?php _e('Start by adding your first review manually.', 'manual-review-manager'); ?></p>
-                    <a href="<?php echo admin_url('admin.php?page=mrm-add-review'); ?>" class="button button-primary">
-                        <?php _e('Add First Review', 'manual-review-manager'); ?>
-                    </a>
-                </div>
-            <?php endif; ?>
-        </div>
-        
         <!-- How to Display Reviews -->
         <div class="mrm-dashboard-section mrm-shortcode-info">
             <h2><?php _e('📋 Complete Shortcode Reference', 'manual-review-manager'); ?></h2>
@@ -149,6 +192,13 @@ if (!defined('ABSPATH')) {
                     <h3>🔷 <?php _e('Basic Review Display', 'manual-review-manager'); ?></h3>
                     <code>[review_manager]</code>
                     <p><?php _e('Shows all approved reviews in default grid layout.', 'manual-review-manager'); ?></p>
+                </div>
+                
+                <!-- Review Display with User Submission Button -->
+                <div class="mrm-shortcode-card">
+                    <h3>👤 <?php _e('Reviews with Submission Button', 'manual-review-manager'); ?></h3>
+                    <code>[review_manager show_review_button="true"]</code>
+                    <p><?php _e('Shows reviews plus a "Leave Your Own Review" button for logged-in users.', 'manual-review-manager'); ?></p>
                 </div>
                 
                 <!-- Grid Layout -->
@@ -226,10 +276,11 @@ if (!defined('ABSPATH')) {
                         <strong>min_rating:</strong> 1, 2, 3, 4, 5 (default: 1)
                     </div>
                     <div>
-                        <strong>platform:</strong> "google", "yelp", "facebook", "manual", "other"<br>
+                        <strong>platform:</strong> "google", "yelp", "facebook", "manual", "user_submitted"<br>
                         <strong>autoplay:</strong> "true", "false" (slider only)<br>
                         <strong>autoplay_speed:</strong> Milliseconds (default: 5000)<br>
-                        <strong>show_breakdown:</strong> "true", "false" (stats only)
+                        <strong>show_breakdown:</strong> "true", "false" (stats only)<br>
+                        <strong>show_review_button:</strong> "true", "false" (adds user submission button)
                     </div>
                 </div>
             </div>
@@ -249,6 +300,9 @@ if (!defined('ABSPATH')) {
                     </div>
                     <div style="font-family: monospace; background: white; padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;" onclick="navigator.clipboard.writeText('[review_manager platform=&quot;google,yelp&quot; layout=&quot;list&quot; max_reviews=&quot;5&quot;]')" title="Click to copy">
                         [review_manager platform="google,yelp" layout="list" max_reviews="5"]
+                    </div>
+                    <div style="font-family: monospace; background: white; padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;" onclick="navigator.clipboard.writeText('[review_manager show_review_button=&quot;true&quot; max_reviews=&quot;6&quot; photo_size=&quot;large&quot;]')" title="Click to copy">
+                        [review_manager show_review_button="true" max_reviews="6" photo_size="large"]
                     </div>
                 </div>
                 <p style="font-size: 12px; color: #666; margin: 10px 0 0 0;">💡 Click any shortcode above to copy it to your clipboard!</p>
@@ -355,6 +409,29 @@ if (!defined('ABSPATH')) {
 .mrm-platform-manual {
     background: #0073aa;
     color: white;
+}
+
+.mrm-platform-user_submitted {
+    background: #50c878;
+    color: white;
+}
+
+.mrm-all-reviews-section {
+    grid-column: 1 / -1;
+    order: -1; /* Move to top */
+}
+
+.mrm-reviews-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.mrm-all-reviews-section .button-small {
+    margin-right: 3px;
+    margin-bottom: 2px;
+    white-space: nowrap;
 }
 
 .mrm-rating {
@@ -471,6 +548,95 @@ jQuery(document).ready(function($) {
         })
         .fail(function() {
             alert('<?php _e('Network error while replacing text.', 'manual-review-manager'); ?>');
+        });
+    });
+    
+    // Approve review functionality for dashboard
+    $('.approve-review-btn').on('click', function() {
+        const reviewId = $(this).data('review-id');
+        const button = $(this);
+        
+        button.prop('disabled', true).text('<?php _e('Approving...', 'manual-review-manager'); ?>');
+        
+        $.post(ajaxurl, {
+            action: 'mrm_approve_review',
+            review_id: reviewId,
+            nonce: '<?php echo wp_create_nonce('mrm_nonce'); ?>'
+        })
+        .done(function(response) {
+            if (response.success) {
+                alert(response.data);
+                location.reload();
+            } else {
+                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
+                button.prop('disabled', false).text('<?php _e('Approve', 'manual-review-manager'); ?>');
+            }
+        })
+        .fail(function() {
+            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
+            button.prop('disabled', false).text('<?php _e('Approve', 'manual-review-manager'); ?>');
+        });
+    });
+    
+    // Reject review functionality for dashboard
+    $('.reject-review-btn').on('click', function() {
+        if (!confirm('<?php _e('Are you sure you want to reject this review? This will delete it permanently.', 'manual-review-manager'); ?>')) {
+            return;
+        }
+        
+        const reviewId = $(this).data('review-id');
+        const button = $(this);
+        
+        button.prop('disabled', true).text('<?php _e('Rejecting...', 'manual-review-manager'); ?>');
+        
+        $.post(ajaxurl, {
+            action: 'mrm_delete_review',
+            review_id: reviewId,
+            nonce: '<?php echo wp_create_nonce('mrm_nonce'); ?>'
+        })
+        .done(function(response) {
+            if (response.success) {
+                alert('<?php _e('Review rejected and deleted.', 'manual-review-manager'); ?>');
+                location.reload();
+            } else {
+                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
+                button.prop('disabled', false).text('<?php _e('Reject', 'manual-review-manager'); ?>');
+            }
+        })
+        .fail(function() {
+            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
+            button.prop('disabled', false).text('<?php _e('Reject', 'manual-review-manager'); ?>');
+        });
+    });
+    
+    // Delete review functionality for dashboard
+    $('.delete-review-btn').on('click', function() {
+        if (!confirm('<?php _e('Are you sure you want to delete this review? This action cannot be undone.', 'manual-review-manager'); ?>')) {
+            return;
+        }
+        
+        const reviewId = $(this).data('review-id');
+        const button = $(this);
+        
+        button.prop('disabled', true).text('<?php _e('Deleting...', 'manual-review-manager'); ?>');
+        
+        $.post(ajaxurl, {
+            action: 'mrm_delete_review',
+            review_id: reviewId,
+            nonce: '<?php echo wp_create_nonce('mrm_nonce'); ?>'
+        })
+        .done(function(response) {
+            if (response.success) {
+                alert(response.data);
+                location.reload();
+            } else {
+                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
+                button.prop('disabled', false).text('<?php _e('Delete', 'manual-review-manager'); ?>');
+            }
+        })
+        .fail(function() {
+            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
+            button.prop('disabled', false).text('<?php _e('Delete', 'manual-review-manager'); ?>');
         });
     });
 });

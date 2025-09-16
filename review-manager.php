@@ -3,7 +3,7 @@
  * Plugin Name: Manual Review Manager
  * Plugin URI: https://github.com/SurefireStudios/ReviewManager.git
  * Description: Manually manage and display customer reviews from multiple business locations with editing capabilities and professional display options.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Surefire Studios
  * License: GPL v2 or later
  * Text Domain: manual-review-manager
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 // Define plugin constants
 define('MRM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MRM_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('MRM_VERSION', '1.1.0');
+define('MRM_VERSION', '1.2.0');
 
 class ManualReviewManager {
     
@@ -30,6 +30,9 @@ class ManualReviewManager {
         // Load plugin files
         $this->load_dependencies();
         
+        // Check for database updates
+        $this->check_database_updates();
+        
         // Initialize components
         if (is_admin()) {
             new MRM_Admin();
@@ -37,6 +40,20 @@ class ManualReviewManager {
         
         new MRM_Frontend();
         new MRM_Shortcodes();
+        new MRM_User_Reviews();
+    }
+    
+    private function check_database_updates() {
+        $current_version = get_option('mrm_version', '1.0.0');
+        
+        if (version_compare($current_version, MRM_VERSION, '<')) {
+            // Run database updates
+            require_once MRM_PLUGIN_DIR . 'includes/class-database.php';
+            MRM_Database::create_tables(); // This will add new columns if they don't exist
+            
+            // Update version
+            update_option('mrm_version', MRM_VERSION);
+        }
     }
     
     private function load_dependencies() {
@@ -44,6 +61,7 @@ class ManualReviewManager {
         require_once MRM_PLUGIN_DIR . 'includes/class-admin.php';
         require_once MRM_PLUGIN_DIR . 'includes/class-frontend.php';
         require_once MRM_PLUGIN_DIR . 'includes/class-shortcodes.php';
+        require_once MRM_PLUGIN_DIR . 'includes/class-user-reviews.php';
     }
     
     public function activate() {
@@ -59,7 +77,9 @@ class ManualReviewManager {
             'show_platform' => 1,
             'max_reviews' => 10,
             'min_rating' => 1,
-            'photo_size' => 'small'
+            'photo_size' => 'small',
+            'redirect_after_review' => home_url(),
+            'button_color' => 'blue'
         ));
     }
     

@@ -44,13 +44,15 @@ class MRM_Database {
             is_approved tinyint(1) DEFAULT 1,
             original_review_text text,
             is_edited tinyint(1) DEFAULT 0,
+            user_id bigint(20) DEFAULT NULL,
             created_at datetime DEFAULT CURRENT_TIMESTAMP,
             updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY location_id (location_id),
             KEY rating (rating),
             KEY platform (platform),
-            KEY is_approved (is_approved)
+            KEY is_approved (is_approved),
+            KEY user_id (user_id)
         ) $charset_collate;";
         
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -199,7 +201,7 @@ class MRM_Database {
         global $wpdb;
         $table = $wpdb->prefix . 'mrm_reviews';
         
-        return $wpdb->insert($table, array(
+        $insert_data = array(
             'location_id' => intval($data['location_id']),
             'reviewer_name' => sanitize_text_field($data['reviewer_name']),
             'reviewer_email' => sanitize_email($data['reviewer_email']),
@@ -210,7 +212,14 @@ class MRM_Database {
             'platform' => sanitize_text_field($data['platform']),
             'is_featured' => intval($data['is_featured']),
             'is_approved' => intval($data['is_approved'])
-        ));
+        );
+        
+        // Add user_id if provided
+        if (isset($data['user_id'])) {
+            $insert_data['user_id'] = intval($data['user_id']);
+        }
+        
+        return $wpdb->insert($table, $insert_data);
     }
     
     public static function update_review($id, $data) {
