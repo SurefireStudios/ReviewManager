@@ -3,7 +3,7 @@
  * Plugin Name: Manual Review Manager
  * Plugin URI: https://github.com/SurefireStudios/ReviewManager.git
  * Description: Manually manage and display customer reviews from multiple business locations with editing capabilities and professional display options.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: Surefire Studios
  * License: GPL v2 or later
  * Text Domain: manual-review-manager
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 // Define plugin constants
 define('MRM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MRM_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('MRM_VERSION', '1.2.0');
+define('MRM_VERSION', '1.3.0');
 
 class ManualReviewManager {
     
@@ -41,6 +41,9 @@ class ManualReviewManager {
         new MRM_Frontend();
         new MRM_Shortcodes();
         new MRM_User_Reviews();
+        
+        // Register widget
+        add_action('widgets_init', array($this, 'register_widgets'));
     }
     
     private function check_database_updates() {
@@ -62,6 +65,7 @@ class ManualReviewManager {
         require_once MRM_PLUGIN_DIR . 'includes/class-frontend.php';
         require_once MRM_PLUGIN_DIR . 'includes/class-shortcodes.php';
         require_once MRM_PLUGIN_DIR . 'includes/class-user-reviews.php';
+        require_once MRM_PLUGIN_DIR . 'includes/class-widget.php';
     }
     
     public function activate() {
@@ -81,6 +85,10 @@ class ManualReviewManager {
             'redirect_after_review' => home_url(),
             'button_color' => 'blue'
         ));
+    }
+    
+    public function register_widgets() {
+        register_widget('MRM_Latest_Reviews_Widget');
     }
     
     public function deactivate() {

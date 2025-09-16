@@ -175,6 +175,7 @@ class MRM_Latest_Reviews_Widget extends WP_Widget {
      */
     public function enqueue_widget_scripts() {
         if (is_active_widget(false, false, $this->id_base)) {
+            wp_enqueue_style('mrm-widget-style', MRM_PLUGIN_URL . 'assets/widget-style.css', array(), MRM_VERSION);
             wp_enqueue_style('mrm-frontend', MRM_PLUGIN_URL . 'assets/frontend.css', array(), MRM_VERSION);
             wp_enqueue_script('mrm-frontend', MRM_PLUGIN_URL . 'assets/frontend.js', array('jquery'), MRM_VERSION, true);
             
@@ -206,10 +207,10 @@ class MRM_Latest_Reviews_Widget extends WP_Widget {
         $reviews = MRM_Database::get_reviews($db_args);
         
         if (empty($reviews)) {
-            return '<div class="mrm-widget-no-reviews"><p>' . __('No reviews found.', 'manual-review-manager') . '</p></div>';
+            return '<p class="no-reviews">' . __('No reviews found.', 'manual-review-manager') . '</p>';
         }
         
-        $output = '<div class="mrm-widget-reviews">';
+        $output = '<div class="review-manager-widget-container">';
         
         foreach ($reviews as $review) {
             $output .= $this->render_widget_review_item($review, $args);
@@ -223,58 +224,71 @@ class MRM_Latest_Reviews_Widget extends WP_Widget {
      * Render a single review item for widget
      */
     private function render_widget_review_item($review, $args) {
-        $output = '<div class="mrm-widget-review-item">';
+        $output = '<div class="review-item">';
         
-        // Header with photo and name
-        $output .= '<div class="mrm-widget-review-header">';
-        
+        // Reviewer photo
         if ($args['show_photos'] && !empty($review->reviewer_photo_url)) {
-            $output .= '<img src="' . esc_url($review->reviewer_photo_url) . '" alt="' . esc_attr($review->reviewer_name) . '" class="mrm-widget-reviewer-photo" />';
+            $output .= '<div class="reviewer-photo">';
+            $output .= '<img src="' . esc_url($review->reviewer_photo_url) . '" alt="' . esc_attr($review->reviewer_name) . '" width="60" height="60" />';
+            $output .= '</div>';
         }
         
-        $output .= '<div class="mrm-widget-reviewer-info">';
-        $output .= '<h3 class="mrm-widget-reviewer-name">' . esc_html(stripslashes($review->reviewer_name)) . '</h3>';
+        // Review content area
+        $output .= '<div class="review-content-area">';
+        
+        // Reviewer name
+        $output .= '<h4 class="reviewer-name">' . esc_html(stripslashes($review->reviewer_name)) . '</h4>';
         
         // Rating stars
         if ($args['show_ratings']) {
-            $output .= '<div class="mrm-widget-rating">';
-            for ($i = 1; $i <= 5; $i++) {
-                $output .= $i <= $review->rating ? '<span class="mrm-star filled">★</span>' : '<span class="mrm-star">☆</span>';
-            }
+            $output .= '<div class="review-rating">';
+            $output .= $this->display_stars($review->rating);
             $output .= '</div>';
         }
         
-        $output .= '</div>';
-        $output .= '</div>';
+        // Review date
+        if ($args['show_dates']) {
+            $output .= '<div class="review-date">' . date_i18n(get_option('date_format'), strtotime($review->review_date)) . '</div>';
+        }
         
         // Review content
         if ($args['truncate'] > 0) {
-            $review_text = wp_trim_words(stripslashes($review->review_text), $args['truncate']);
-            $output .= '<div class="mrm-widget-review-content">';
-            $output .= '<p class="mrm-widget-review-text">' . nl2br(wp_kses_post($review_text)) . '</p>';
+            $review_text = wp_trim_words(stripslashes($review->review_text), $args['truncate'], '...');
+            $output .= '<div class="review-content">';
+            $output .= '<p>' . wp_kses_post($review_text) . '</p>';
             $output .= '</div>';
         }
         
-        // Footer with date and platform
-        if ($args['show_dates'] || $args['show_platform']) {
-            $output .= '<div class="mrm-widget-review-footer">';
-            
-            if ($args['show_dates']) {
-                $output .= '<span class="mrm-widget-review-date">' . $this->get_relative_time($review->review_date) . '</span>';
-            }
-            
-            if ($args['show_platform'] && $review->platform !== 'manual') {
-                $platform_label = ucfirst($review->platform);
-                $output .= '<span class="mrm-widget-platform mrm-platform-' . esc_attr($review->platform) . '" title="' . esc_attr($platform_label) . ' Review">';
-                $output .= $this->get_platform_svg($review->platform);
-                $output .= '</span>';
-            }
-            
-            $output .= '</div>';
+        // Platform badge
+        if ($args['show_platform'] && $review->platform !== 'manual') {
+            $platform_label = ucfirst($review->platform);
+            $output .= '<span class="review-platform" title="' . esc_attr($platform_label) . ' Review">';
+            $output .= $this->get_platform_svg($review->platform);
+            $output .= '</span>';
         }
         
-        $output .= '</div>';
+        $output .= '</div>'; // Close review-content-area
+        $output .= '</div>'; // Close review-item
+        
         return $output;
+    }
+    
+    /**
+     * Display star rating
+     */
+    private function display_stars($rating) {
+        $stars = '';
+        $rating = max(0, min(5, intval($rating)));
+        
+        for ($i = 1; $i <= 5; $i++) {
+            if ($i <= $rating) {
+                $stars .= '<span class="star filled">★</span>';
+            } else {
+                $stars .= '<span class="star empty">☆</span>';
+            }
+        }
+        
+        return $stars;
     }
     
     /**

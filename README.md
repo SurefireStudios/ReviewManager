@@ -2,11 +2,17 @@
 
 A comprehensive WordPress plugin for managing and displaying customer reviews from multiple business locations with full editing control, user submissions, and professional display options.
 
-## 🌟 New Features in v1.2.0
+## 🌟 New Features in v1.3.0
+
+- **🎨 Professional WordPress Widget** - Native Latest Posts-style widget for sidebars and widget areas
+- **📱 Mobile-Responsive Design** - Perfect responsive layout that adapts to any screen size
+- **✨ WordPress Core Styling** - Matches WordPress native widgets for seamless integration
+- **🎯 Advanced Widget Options** - Complete control over display settings and filtering
+- **⚡ Optimized Performance** - Streamlined code and improved loading times
+
+## Features in v1.2.0
 
 - **✨ User Review Submissions** - Let customers submit their own reviews with photo uploads
-- **📱 WordPress Widget** - Display latest reviews in sidebars and widget areas
-- **🎯 Grid Slider Layout** - New carousel-style grid display with multiple columns
 - **👥 User Management** - Track review submissions by registered users
 - **✅ Review Approval System** - Moderate user-submitted reviews before publishing
 - **📧 Admin Notifications** - Get notified when new reviews are submitted
@@ -20,7 +26,7 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 - **Bulk Text Replacement** - Perfect for changing business names across all reviews
 - **Professional Display Options** - Grid, list, slider, and grid slider layouts
 - **User Review Submissions** - Allow customers to submit reviews with approval workflow
-- **WordPress Widget** - Sidebar widget for displaying latest reviews
+- **Professional WordPress Widget** - Native-style sidebar widget with advanced configuration options
 - **Responsive Design** - Mobile-friendly display with customizable themes
 - **SEO Optimized** - Includes structured data markup for search engines
 - **Photo Upload Support** - Customer and admin photo uploads with automatic optimization
@@ -50,7 +56,7 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 [review_slider arrows="true" dots="true" max_reviews="10"]
 ```
 
-### Grid Slider (NEW!)
+### Grid Slider
 ```
 [review_grid_slider columns="3" autoplay="true" speed="5000"]
 [review_grid_slider columns="2" arrows="true" dots="true"]
@@ -72,6 +78,16 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 ```
 [review_manager show_review_button="true"]
 ```
+
+### WordPress Widget (NEW!)
+1. Go to "Appearance" → "Widgets"
+2. Add "Review Manager: Latest Reviews" widget
+3. Configure widget settings:
+   - Title and number of reviews to show
+   - Minimum rating filter
+   - Location-specific display
+   - Show/hide photos, dates, platforms
+   - Customize excerpt length
 
 ## Shortcode Parameters
 
@@ -162,21 +178,34 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 - Use the bulk actions for managing multiple reviews
 - Filter reviews by approval status, platform, or location
 
-### WordPress Widget (NEW!)
-1. Go to "Appearance" → "Widgets"
-2. Add "Review Manager: Latest Reviews" widget
-3. Configure widget settings:
-   - Title and number of reviews to show
-   - Minimum rating filter
-   - Location-specific display
-   - Show/hide photos, dates, platforms
-   - Customize excerpt length
-
 ### Bulk Text Replacement
 1. Go to "Review Manager" → "Settings"
 2. Use the "Bulk Text Replacement" tool
 3. Enter text to find and replace across all reviews
 4. Perfect for changing business names or updating information
+
+### WordPress Widget Configuration
+The "Review Manager: Latest Reviews" widget offers comprehensive customization:
+
+**Basic Settings:**
+- Widget title (appears above reviews)
+- Number of reviews to display (1-20)
+- Minimum rating filter (1-5 stars)
+- Location filter (specific location or all locations)
+
+**Display Options:**
+- Show/hide reviewer photos with hover effects
+- Show/hide review dates
+- Show/hide platform badges (Google, Yelp, Facebook)
+- Show/hide review excerpts with custom word count
+- Show/hide star ratings
+
+**Styling Features:**
+- Native WordPress Latest Posts styling
+- Responsive mobile design
+- Horizontal layout with photos
+- Hover animations and transitions
+- Clean white background matching WordPress core
 
 ### Display Settings
 Configure global display options in "Review Manager" → "Settings":
@@ -197,7 +226,7 @@ Configure global display options in "Review Manager" → "Settings":
 - **Multi-Location Businesses** - Manage reviews for multiple locations
 - **Complete Control** - Edit review content to fix typos or inappropriate language
 - **Social Proof** - Display customer testimonials with photos and ratings
-- **Widget Integration** - Show latest reviews in sidebars for constant visibility
+- **Professional Widget Integration** - Native WordPress widget with Latest Posts styling for seamless theme integration
 - **Review Moderation** - Approve user submissions before they go live
 - **No API Costs** - Avoid Google Places API or Yelp API fees
 - **Offline Reviews** - Add reviews from any source, not just online platforms
@@ -219,7 +248,7 @@ For support and documentation, visit [Surefire Studios](https://surefirestudios.
 This plugin is licensed under the GNU General Public License v2 (or later).
 
 **Author:** Surefire Studios  
-**Version:** 1.2.0  
+**Version:** 1.3.0  
 **License:** GPL v2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 **Plugin URI:** https://github.com/SurefireStudios/ReviewManager.git
