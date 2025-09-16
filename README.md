@@ -5,8 +5,6 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 ## 🌟 New Features in v1.2.0
 
 - **✨ User Review Submissions** - Let customers submit their own reviews with photo uploads
-- **📱 WordPress Widget** - Display latest reviews in sidebars and widget areas
-- **🎯 Grid Slider Layout** - New carousel-style grid display with multiple columns
 - **👥 User Management** - Track review submissions by registered users
 - **✅ Review Approval System** - Moderate user-submitted reviews before publishing
 - **📧 Admin Notifications** - Get notified when new reviews are submitted
@@ -50,7 +48,7 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 [review_slider arrows="true" dots="true" max_reviews="10"]
 ```
 
-### Grid Slider (NEW!)
+### Grid Slider
 ```
 [review_grid_slider columns="3" autoplay="true" speed="5000"]
 [review_grid_slider columns="2" arrows="true" dots="true"]
@@ -68,7 +66,7 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 [review_manager location_id="2" show_review_button="true"]
 ```
 
-### User Review Submissions
+### User Review Submissions (New!)
 ```
 [review_manager show_review_button="true"]
 ```
@@ -161,16 +159,6 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 - Delete reviews you no longer want to display
 - Use the bulk actions for managing multiple reviews
 - Filter reviews by approval status, platform, or location
-
-### WordPress Widget (NEW!)
-1. Go to "Appearance" → "Widgets"
-2. Add "Review Manager: Latest Reviews" widget
-3. Configure widget settings:
-   - Title and number of reviews to show
-   - Minimum rating filter
-   - Location-specific display
-   - Show/hide photos, dates, platforms
-   - Customize excerpt length
 
 ### Bulk Text Replacement
 1. Go to "Review Manager" → "Settings"
