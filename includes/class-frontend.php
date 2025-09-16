@@ -34,14 +34,9 @@ class MRM_Frontend {
             return has_shortcode($post->post_content, 'review_manager') || 
                    has_shortcode($post->post_content, 'review_slider') || 
                    has_shortcode($post->post_content, 'review_grid_slider') || 
-                   has_shortcode($post->post_content, 'review_stats') ||
-                   $this->has_review_widget();
+                   has_shortcode($post->post_content, 'review_stats');
         }
-        return $this->has_review_widget();
-    }
-    
-    private function has_review_widget() {
-        return is_active_widget(false, false, 'mrm_latest_reviews_widget');
+        return false;
     }
     
     public function display_reviews($args = array()) {
