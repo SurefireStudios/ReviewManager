@@ -74,7 +74,7 @@ A comprehensive WordPress plugin for managing and displaying customer reviews fr
 [review_manager location_id="2" show_review_button="true"]
 ```
 
-### User Review Submissions
+### User Review Submissions (New!)
 ```
 [review_manager show_review_button="true"]
 ```
