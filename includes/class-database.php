@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager Database Class
+ * Review Manager Database Class
  */
 
 if (!defined('ABSPATH')) {

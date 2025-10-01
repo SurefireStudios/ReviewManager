@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager Dashboard Template
+ * Review Manager Dashboard Template
  */
 
 if (!defined('ABSPATH')) {
@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="wrap">
-    <h1><?php _e('Manual Review Manager Dashboard', 'manual-review-manager'); ?></h1>
+    <h1><?php esc_html_e('Review Manager Dashboard', 'manual-review-manager'); ?></h1>
     
     <div class="mrm-dashboard-stats">
         <div class="mrm-stat-box">

@@ -41,9 +41,9 @@ if ($search_term) {
 
 <div class="wrap">
     <h1>
-        <?php _e('Manage Reviews', 'manual-review-manager'); ?>
+        <?php esc_html_e('Manage Reviews', 'manual-review-manager'); ?>
         <a href="<?php echo admin_url('admin.php?page=mrm-add-review'); ?>" class="page-title-action">
-            <?php _e('Add New Review', 'manual-review-manager'); ?>
+            <?php esc_html_e('Add New Review', 'manual-review-manager'); ?>
         </a>
     </h1>
     
@@ -53,7 +53,7 @@ if ($search_term) {
             <input type="hidden" name="page" value="mrm-reviews" />
             
             <select name="location">
-                <option value=""><?php _e('All Locations', 'manual-review-manager'); ?></option>
+                <option value=""><?php esc_html_e('All Locations', 'manual-review-manager'); ?></option>
                 <?php foreach ($locations as $location): ?>
                     <option value="<?php echo $location->id; ?>" <?php selected($location_filter, $location->id); ?>>
                         <?php echo esc_html($location->name); ?>
@@ -62,20 +62,20 @@ if ($search_term) {
             </select>
             
             <select name="platform">
-                <option value=""><?php _e('All Platforms', 'manual-review-manager'); ?></option>
-                <option value="google" <?php selected($platform_filter, 'google'); ?>><?php _e('Google', 'manual-review-manager'); ?></option>
-                <option value="yelp" <?php selected($platform_filter, 'yelp'); ?>><?php _e('Yelp', 'manual-review-manager'); ?></option>
-                <option value="manual" <?php selected($platform_filter, 'manual'); ?>><?php _e('Manual', 'manual-review-manager'); ?></option>
-                <option value="user_submitted" <?php selected($platform_filter, 'user_submitted'); ?>><?php _e('User Submitted', 'manual-review-manager'); ?></option>
+                <option value=""><?php esc_html_e('All Platforms', 'manual-review-manager'); ?></option>
+                <option value="google" <?php selected($platform_filter, 'google'); ?>><?php esc_html_e('Google', 'manual-review-manager'); ?></option>
+                <option value="yelp" <?php selected($platform_filter, 'yelp'); ?>><?php esc_html_e('Yelp', 'manual-review-manager'); ?></option>
+                <option value="manual" <?php selected($platform_filter, 'manual'); ?>><?php esc_html_e('Manual', 'manual-review-manager'); ?></option>
+                <option value="user_submitted" <?php selected($platform_filter, 'user_submitted'); ?>><?php esc_html_e('User Submitted', 'manual-review-manager'); ?></option>
             </select>
             
-            <input type="search" name="search" value="<?php echo esc_attr($search_term); ?>" placeholder="<?php _e('Search reviews...', 'manual-review-manager'); ?>" />
+            <input type="search" name="search" value="<?php echo esc_attr($search_term); ?>" placeholder="<?php esc_attr_e('Search reviews...', 'manual-review-manager'); ?>" />
             
-            <button type="submit" class="button"><?php _e('Filter', 'manual-review-manager'); ?></button>
+            <button type="submit" class="button"><?php esc_html_e('Filter', 'manual-review-manager'); ?></button>
             
             <?php if ($location_filter || $platform_filter || $search_term): ?>
                 <a href="<?php echo admin_url('admin.php?page=mrm-reviews'); ?>" class="button">
-                    <?php _e('Clear Filters', 'manual-review-manager'); ?>
+                    <?php esc_html_e('Clear Filters', 'manual-review-manager'); ?>
                 </a>
             <?php endif; ?>
         </form>
@@ -85,13 +85,13 @@ if ($search_term) {
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th scope="col" style="width: 180px;"><?php _e('Reviewer', 'manual-review-manager'); ?></th>
-                    <th scope="col" style="width: 80px;"><?php _e('Rating', 'manual-review-manager'); ?></th>
-                    <th scope="col"><?php _e('Review Text', 'manual-review-manager'); ?></th>
-                    <th scope="col" style="width: 100px;"><?php _e('Date', 'manual-review-manager'); ?></th>
-                    <th scope="col" style="width: 130px;"><?php _e('Platform', 'manual-review-manager'); ?></th>
-                    <th scope="col" style="width: 90px;"><?php _e('Status', 'manual-review-manager'); ?></th>
-                    <th scope="col" style="width: 180px;"><?php _e('Actions', 'manual-review-manager'); ?></th>
+                    <th scope="col" style="width: 180px;"><?php esc_html_e('Reviewer', 'manual-review-manager'); ?></th>
+                    <th scope="col" style="width: 80px;"><?php esc_html_e('Rating', 'manual-review-manager'); ?></th>
+                    <th scope="col"><?php esc_html_e('Review Text', 'manual-review-manager'); ?></th>
+                    <th scope="col" style="width: 100px;"><?php esc_html_e('Date', 'manual-review-manager'); ?></th>
+                    <th scope="col" style="width: 130px;"><?php esc_html_e('Platform', 'manual-review-manager'); ?></th>
+                    <th scope="col" style="width: 90px;"><?php esc_html_e('Status', 'manual-review-manager'); ?></th>
+                    <th scope="col" style="width: 180px;"><?php esc_html_e('Actions', 'manual-review-manager'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -136,32 +136,32 @@ if ($search_term) {
                         </td>
                         <td>
                             <?php if ($review->is_approved): ?>
-                                <span style="color: #46b450;">✓ <?php _e('Approved', 'manual-review-manager'); ?></span>
+                                <span style="color: #46b450;">✓ <?php esc_html_e('Approved', 'manual-review-manager'); ?></span>
                             <?php else: ?>
-                                <span style="color: #dc3232;">✗ <?php _e('Pending', 'manual-review-manager'); ?></span>
+                                <span style="color: #dc3232;">✗ <?php esc_html_e('Pending', 'manual-review-manager'); ?></span>
                             <?php endif; ?>
                         </td>
                         <td>
                             <?php if ($review->platform === 'user_submitted' && !$review->is_approved): ?>
                                 <button class="button button-small button-primary approve-review-btn" 
                                         data-review-id="<?php echo $review->id; ?>"
-                                        title="<?php _e('Approve this review', 'manual-review-manager'); ?>">
-                                    <?php _e('Approve', 'manual-review-manager'); ?>
+                                        title="<?php esc_attr_e('Approve this review', 'manual-review-manager'); ?>">
+                                    <?php esc_html_e('Approve', 'manual-review-manager'); ?>
                                 </button>
                                 <button class="button button-small button-link-delete reject-review-btn" 
                                         data-review-id="<?php echo $review->id; ?>"
-                                        title="<?php _e('Reject this review', 'manual-review-manager'); ?>">
-                                    <?php _e('Reject', 'manual-review-manager'); ?>
+                                        title="<?php esc_attr_e('Reject this review', 'manual-review-manager'); ?>">
+                                    <?php esc_html_e('Reject', 'manual-review-manager'); ?>
                                 </button>
                             <?php else: ?>
                                 <a href="<?php echo admin_url('admin.php?page=mrm-add-review&edit=' . $review->id); ?>" 
                                    class="button button-small">
-                                    <?php _e('Edit', 'manual-review-manager'); ?>
+                                    <?php esc_html_e('Edit', 'manual-review-manager'); ?>
                                 </a>
                             <?php endif; ?>
                             <button class="button button-small button-link-delete delete-review-btn" 
                                     data-review-id="<?php echo $review->id; ?>">
-                                <?php _e('Delete', 'manual-review-manager'); ?>
+                                <?php esc_html_e('Delete', 'manual-review-manager'); ?>
                             </button>
                         </td>
                     </tr>
@@ -170,58 +170,20 @@ if ($search_term) {
         </table>
     <?php else: ?>
         <div class="mrm-empty-state">
-            <h2><?php _e('No reviews found', 'manual-review-manager'); ?></h2>
-            <p><?php _e('Try adjusting your filters or add your first review.', 'manual-review-manager'); ?></p>
+            <h2><?php esc_html_e('No reviews found', 'manual-review-manager'); ?></h2>
+            <p><?php esc_html_e('Try adjusting your filters or add your first review.', 'manual-review-manager'); ?></p>
             <a href="<?php echo admin_url('admin.php?page=mrm-add-review'); ?>" class="button button-primary">
-                <?php _e('Add Your First Review', 'manual-review-manager'); ?>
+                <?php esc_html_e('Add Your First Review', 'manual-review-manager'); ?>
             </a>
         </div>
     <?php endif; ?>
 </div>
 
-<style>
-.mrm-platform {
-    background: #f0f0f0;
-    color: #666;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 500;
-    display: inline-block;
-}
-
-.mrm-platform-google {
-    background: #4285f4;
-    color: white;
-}
-
-.mrm-platform-yelp {
-    background: #d32323;
-    color: white;
-}
-
-.mrm-platform-manual {
-    background: #0073aa;
-    color: white;
-}
-
-.mrm-platform-user_submitted {
-    background: #50c878;
-    color: white;
-}
-
-/* Button spacing for consistent layout */
-.wp-list-table .button-small {
-    margin-right: 3px;
-    margin-bottom: 2px;
-    white-space: nowrap;
-}
-</style>
 
 <script>
 jQuery(document).ready(function($) {
     $('.delete-review-btn').on('click', function() {
-        if (!confirm('<?php _e('Are you sure you want to delete this review? This action cannot be undone.', 'manual-review-manager'); ?>')) {
+        if (!confirm('<?php esc_js(_e('Are you sure you want to delete this review? This action cannot be undone.', 'manual-review-manager')); ?>')) {
             return;
         }
         
@@ -237,11 +199,11 @@ jQuery(document).ready(function($) {
                 alert(response.data);
                 location.reload();
             } else {
-                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
+                alert('<?php esc_js(_e('Error: ', 'manual-review-manager')); ?>' + (response.data || '<?php esc_js(_e('Unknown error occurred.', 'manual-review-manager')); ?>'));
             }
         })
         .fail(function() {
-            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
+            alert('<?php esc_js(_e('Network error. Please try again.', 'manual-review-manager')); ?>');
         });
     });
     
@@ -250,7 +212,7 @@ jQuery(document).ready(function($) {
         const reviewId = $(this).data('review-id');
         const button = $(this);
         
-        button.prop('disabled', true).text('<?php _e('Approving...', 'manual-review-manager'); ?>');
+        button.prop('disabled', true).text('<?php esc_js(_e('Approving...', 'manual-review-manager')); ?>');
         
         $.post(mrm_ajax.ajaxurl, {
             action: 'mrm_approve_review',
@@ -262,26 +224,26 @@ jQuery(document).ready(function($) {
                 alert(response.data);
                 location.reload();
             } else {
-                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
-                button.prop('disabled', false).text('<?php _e('Approve', 'manual-review-manager'); ?>');
+                alert('<?php esc_js(_e('Error: ', 'manual-review-manager')); ?>' + (response.data || '<?php esc_js(_e('Unknown error occurred.', 'manual-review-manager')); ?>'));
+                button.prop('disabled', false).text('<?php esc_js(_e('Approve', 'manual-review-manager')); ?>');
             }
         })
         .fail(function() {
-            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
-            button.prop('disabled', false).text('<?php _e('Approve', 'manual-review-manager'); ?>');
+            alert('<?php esc_js(_e('Network error. Please try again.', 'manual-review-manager')); ?>');
+            button.prop('disabled', false).text('<?php esc_js(_e('Approve', 'manual-review-manager')); ?>');
         });
     });
     
     // Reject review functionality
     $('.reject-review-btn').on('click', function() {
-        if (!confirm('<?php _e('Are you sure you want to reject this review? This will delete it permanently.', 'manual-review-manager'); ?>')) {
+        if (!confirm('<?php esc_js(_e('Are you sure you want to reject this review? This will delete it permanently.', 'manual-review-manager')); ?>')) {
             return;
         }
         
         const reviewId = $(this).data('review-id');
         const button = $(this);
         
-        button.prop('disabled', true).text('<?php _e('Rejecting...', 'manual-review-manager'); ?>');
+        button.prop('disabled', true).text('<?php esc_js(_e('Rejecting...', 'manual-review-manager')); ?>');
         
         $.post(mrm_ajax.ajaxurl, {
             action: 'mrm_delete_review',
@@ -290,16 +252,16 @@ jQuery(document).ready(function($) {
         })
         .done(function(response) {
             if (response.success) {
-                alert('<?php _e('Review rejected and deleted.', 'manual-review-manager'); ?>');
+                alert('<?php esc_js(_e('Review rejected and deleted.', 'manual-review-manager')); ?>');
                 location.reload();
             } else {
-                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
-                button.prop('disabled', false).text('<?php _e('Reject', 'manual-review-manager'); ?>');
+                alert('<?php esc_js(_e('Error: ', 'manual-review-manager')); ?>' + (response.data || '<?php esc_js(_e('Unknown error occurred.', 'manual-review-manager')); ?>'));
+                button.prop('disabled', false).text('<?php esc_js(_e('Reject', 'manual-review-manager')); ?>');
             }
         })
         .fail(function() {
-            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
-            button.prop('disabled', false).text('<?php _e('Reject', 'manual-review-manager'); ?>');
+            alert('<?php esc_js(_e('Network error. Please try again.', 'manual-review-manager')); ?>');
+            button.prop('disabled', false).text('<?php esc_js(_e('Reject', 'manual-review-manager')); ?>');
         });
     });
 });

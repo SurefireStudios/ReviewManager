@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    // Admin JavaScript for Manual Review Manager
+    // Admin JavaScript for Review Manager
     
     // Confirm delete actions
     $('.delete-btn').on('click', function(e) {

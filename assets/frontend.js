@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    // Manual Review Manager Frontend JavaScript
+    // Review Manager Frontend JavaScript
     
     // Initialize sliders with a small delay to ensure DOM is ready
     setTimeout(function() {

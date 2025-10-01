@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager User Reviews Class
+ * Review Manager User Reviews Class
  * Handles user-submitted reviews
  */
 
@@ -58,20 +58,20 @@ class MRM_User_Reviews {
             ob_start();
             ?>
             <div class="mrm-review-form-container">
-                <h2><?php _e('Submit Your Review', 'manual-review-manager'); ?></h2>
+                <h2><?php esc_html_e('Submit Your Review', 'manual-review-manager'); ?></h2>
                 
                 <?php if (isset($_GET['submitted']) && $_GET['submitted'] === 'success'): 
                     $display_settings = get_option('mrm_display_settings', array());
                     $redirect_url = isset($display_settings['redirect_after_review']) ? $display_settings['redirect_after_review'] : home_url();
                 ?>
                     <div class="mrm-success-message">
-                        <p><?php _e('Thank you! Your review has been submitted and is pending approval.', 'manual-review-manager'); ?></p>
+                        <p><?php esc_html_e('Thank you! Your review has been submitted and is pending approval.', 'manual-review-manager'); ?></p>
                         <div class="mrm-buttons">
                             <a href="<?php echo esc_url(remove_query_arg(array('mrm_action', 'location_id', 'submitted'))); ?>" class="mrm-back-btn">
-                                <?php _e('Back to Reviews', 'manual-review-manager'); ?>
+                                <?php esc_html_e('Back to Reviews', 'manual-review-manager'); ?>
                             </a>
                             <a href="<?php echo esc_url($redirect_url); ?>" class="mrm-back-btn">
-                                <?php _e('Continue Browsing', 'manual-review-manager'); ?>
+                                <?php esc_html_e('Continue Browsing', 'manual-review-manager'); ?>
                             </a>
                         </div>
                     </div>
@@ -80,20 +80,20 @@ class MRM_User_Reviews {
                         <?php wp_nonce_field('mrm_review_nonce', 'mrm_review_nonce'); ?>
                         
                         <div class="mrm-form-group">
-                            <label for="reviewer_name"><?php _e('Your Name', 'manual-review-manager'); ?> <span class="required">*</span></label>
+                            <label for="reviewer_name"><?php esc_html_e('Your Name', 'manual-review-manager'); ?> <span class="required">*</span></label>
                             <input type="text" id="reviewer_name" name="reviewer_name" value="<?php echo esc_attr($current_user->display_name); ?>" required />
                         </div>
                         
                         <div class="mrm-form-group">
-                            <label for="reviewer_email"><?php _e('Your Email', 'manual-review-manager'); ?> <span class="required">*</span></label>
+                            <label for="reviewer_email"><?php esc_html_e('Your Email', 'manual-review-manager'); ?> <span class="required">*</span></label>
                             <input type="email" id="reviewer_email" name="reviewer_email" value="<?php echo esc_attr($current_user->user_email); ?>" required />
                         </div>
                         
                         <?php if (!empty($locations)): ?>
                         <div class="mrm-form-group">
-                            <label for="location_id"><?php _e('Location', 'manual-review-manager'); ?> <span class="required">*</span></label>
+                            <label for="location_id"><?php esc_html_e('Location', 'manual-review-manager'); ?> <span class="required">*</span></label>
                             <select id="location_id" name="location_id" required>
-                                <option value=""><?php _e('Select a location', 'manual-review-manager'); ?></option>
+                                <option value=""><?php esc_html_e('Select a location', 'manual-review-manager'); ?></option>
                                 <?php foreach ($locations as $location): ?>
                                     <option value="<?php echo esc_attr($location->id); ?>" <?php selected($location_id, $location->id); ?>>
                                         <?php echo esc_html($location->name); ?>
@@ -106,7 +106,7 @@ class MRM_User_Reviews {
                         <?php endif; ?>
                         
                         <div class="mrm-form-group">
-                            <label for="rating"><?php _e('Rating', 'manual-review-manager'); ?> <span class="required">*</span></label>
+                            <label for="rating"><?php esc_html_e('Rating', 'manual-review-manager'); ?> <span class="required">*</span></label>
                             <div class="mrm-star-rating">
                                 <?php for ($i = 5; $i >= 1; $i--): ?>
                                     <input type="radio" id="star<?php echo $i; ?>" name="rating" value="<?php echo $i; ?>" required />
@@ -117,12 +117,12 @@ class MRM_User_Reviews {
                         </div>
                         
                         <div class="mrm-form-group">
-                            <label for="review_text"><?php _e('Your Review', 'manual-review-manager'); ?> <span class="required">*</span></label>
+                            <label for="review_text"><?php esc_html_e('Your Review', 'manual-review-manager'); ?> <span class="required">*</span></label>
                             <textarea id="review_text" name="review_text" rows="6" placeholder="<?php esc_attr_e('Share your experience...', 'manual-review-manager'); ?>" required></textarea>
                         </div>
                         
                         <div class="mrm-form-group">
-                            <label for="reviewer_photo"><?php _e('Your Photo (Optional)', 'manual-review-manager'); ?></label>
+                            <label for="reviewer_photo"><?php esc_html_e('Your Photo (Optional)', 'manual-review-manager'); ?></label>
                             <div class="mrm-photo-upload">
                                 <input type="file" id="reviewer_photo" name="reviewer_photo" accept="image/*" />
                                 <div class="mrm-photo-preview" style="display: none;">
@@ -154,7 +154,7 @@ class MRM_User_Reviews {
     
     public function handle_review_submission() {
         // Handle non-AJAX form submission as fallback
-        if (isset($_POST['mrm_review_nonce']) && wp_verify_nonce($_POST['mrm_review_nonce'], 'mrm_review_nonce')) {
+        if (isset($_POST['mrm_review_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['mrm_review_nonce'])), 'mrm_review_nonce')) {
             if (!is_user_logged_in()) {
                 wp_die(__('You must be logged in to submit a review.', 'manual-review-manager'));
             }

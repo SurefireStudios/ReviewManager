@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Manual Review Manager
- * Plugin URI: https://github.com/SurefireStudios/ReviewManager.git
- * Description: Manually manage and display customer reviews from multiple business locations with editing capabilities and professional display options.
+ * Plugin Name: Review Manager
+ * Plugin URI: https://github.com/SurefireStudios/ReviewManager
+ * Description: A comprehensive WordPress plugin for managing and displaying customer reviews with user submission capabilities, multiple display layouts, and complete editorial control.
  * Version: 1.2.0
  * Author: Surefire Studios
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ define('MRM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('MRM_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('MRM_VERSION', '1.2.0');
 
-class ManualReviewManager {
+class ReviewManager {
     
     public function __construct() {
         add_action('init', array($this, 'init'));
@@ -90,4 +90,4 @@ class ManualReviewManager {
 }
 
 // Initialize the plugin
-new ManualReviewManager(); 
+new ReviewManager(); 

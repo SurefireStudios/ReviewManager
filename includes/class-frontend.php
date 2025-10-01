@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager Frontend Class
+ * Review Manager Frontend Class
  */
 
 if (!defined('ABSPATH')) {
@@ -97,7 +97,7 @@ class MRM_Frontend {
             $theme = !empty($args['theme']) ? $args['theme'] : (isset($display_settings['color_theme']) ? $display_settings['color_theme'] : 'light');
             $theme_class = $theme !== 'light' ? 'mrm-theme-' . esc_attr($theme) : '';
             
-            return '<div class="mrm-no-reviews ' . $theme_class . '"><p>' . __('No reviews found.', 'manual-review-manager') . '</p></div>';
+            return '<div class="mrm-no-reviews ' . $theme_class . '"><p>' . esc_html__('No reviews found.', 'manual-review-manager') . '</p></div>';
         }
         
         // Filter by platform if multiple platforms specified
@@ -146,8 +146,8 @@ class MRM_Frontend {
         // Add View More button if there are more reviews and it's not a slider
         if ($has_more && $args['layout'] !== 'slider' && $args['layout'] !== 'grid_slider') {
             $output .= '<div class="mrm-view-more-container">';
-            $output .= '<button class="mrm-view-more-btn" onclick="mrmLoadMoreReviews(\'' . $container_id . '\')">';
-            $output .= __('View More Reviews', 'manual-review-manager');
+            $output .= '<button class="mrm-view-more-btn" onclick="mrmLoadMoreReviews(\'' . esc_js($container_id) . '\')">';
+            $output .= esc_html__('View More Reviews', 'manual-review-manager');
             $output .= '</button>';
             $output .= '</div>';
         }
@@ -319,7 +319,7 @@ class MRM_Frontend {
             $output .= '<span class="mrm-text-short">' . nl2br(wp_kses_post($short_text)) . '...</span>';
             $output .= '<span class="mrm-text-full" style="display: none;">' . nl2br(wp_kses_post($full_text)) . '</span>';
             $output .= '</p>';
-            $output .= '<button class="mrm-read-more-btn" onclick="mrmToggleText(this)">' . __('Read More', 'manual-review-manager') . '</button>';
+            $output .= '<button class="mrm-read-more-btn" onclick="mrmToggleText(this)">' . esc_html__('Read More', 'manual-review-manager') . '</button>';
         } else if ($truncate > 0) {
             // Use WordPress truncation if specified and text isn't long enough for Read More
             $output .= '<p class="mrm-review-text">' . nl2br(wp_kses_post($review_text)) . '</p>';
@@ -369,7 +369,7 @@ class MRM_Frontend {
             $theme = !empty($args['theme']) ? $args['theme'] : (isset($display_settings['color_theme']) ? $display_settings['color_theme'] : 'light');
             $theme_class = $theme !== 'light' ? 'mrm-theme-' . esc_attr($theme) : '';
             
-            return '<div class="mrm-no-stats ' . $theme_class . '"><p>' . __('No review statistics available.', 'manual-review-manager') . '</p></div>';
+            return '<div class="mrm-no-stats ' . $theme_class . '"><p>' . esc_html__('No review statistics available.', 'manual-review-manager') . '</p></div>';
         }
         
         // Get theme setting - shortcode parameter overrides global setting
@@ -537,7 +537,7 @@ class MRM_Frontend {
             );
         }
         
-        echo '<script type="application/ld+json">' . json_encode($structured_data) . '</script>';
+        echo '<script type="application/ld+json">' . wp_json_encode($structured_data) . '</script>';
     }
     
     public function add_button_color_styles() {

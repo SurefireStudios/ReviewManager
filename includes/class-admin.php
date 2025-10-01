@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager Admin Class
+ * Review Manager Admin Class
  */
 
 if (!defined('ABSPATH')) {
@@ -26,7 +26,7 @@ class MRM_Admin {
     
     public function add_admin_menu() {
         add_menu_page(
-            __('Manual Review Manager', 'manual-review-manager'),
+            __('Review Manager', 'manual-review-manager'),
             __('Review Manager', 'manual-review-manager'),
             'manage_options',
             'manual-review-manager',
@@ -351,7 +351,7 @@ class MRM_Admin {
     }
     
     public function ajax_load_more_reviews() {
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'mrm_nonce')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'mrm_nonce')) {
             wp_send_json_error(__('Invalid nonce.', 'manual-review-manager'));
         }
         

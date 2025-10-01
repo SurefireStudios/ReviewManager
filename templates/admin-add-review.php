@@ -8,18 +8,18 @@ if (!defined('ABSPATH')) {
 }
 
 $is_edit = !empty($review);
-$page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add New Review', 'manual-review-manager');
+$page_title = $is_edit ? esc_html__('Edit Review', 'manual-review-manager') : esc_html__('Add New Review', 'manual-review-manager');
 ?>
 
 <div class="wrap">
-    <h1><?php echo $page_title; ?></h1>
+    <h1><?php echo esc_html($page_title); ?></h1>
     
     <?php if (empty($locations)): ?>
         <div class="notice notice-warning">
             <p>
-                <?php _e('You need to add at least one location before you can add reviews.', 'manual-review-manager'); ?>
+                <?php esc_html_e('You need to add at least one location before you can add reviews.', 'manual-review-manager'); ?>
                 <a href="<?php echo admin_url('admin.php?page=mrm-locations'); ?>" class="button">
-                    <?php _e('Add Location', 'manual-review-manager'); ?>
+                    <?php esc_html_e('Add Location', 'manual-review-manager'); ?>
                 </a>
             </p>
         </div>
@@ -34,13 +34,13 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                 <div class="mrm-form-main">
                     <div class="postbox">
                         <div class="postbox-header">
-                            <h2><?php _e('Review Details', 'manual-review-manager'); ?></h2>
+                            <h2><?php esc_html_e('Review Details', 'manual-review-manager'); ?></h2>
                         </div>
                         <div class="inside">
                             <table class="form-table">
                                 <tr>
                                     <th scope="row">
-                                        <label for="reviewer-name"><?php _e('Reviewer Name', 'manual-review-manager'); ?> *</label>
+                                        <label for="reviewer-name"><?php esc_html_e('Reviewer Name', 'manual-review-manager'); ?> *</label>
                                     </th>
                                     <td>
                                         <input type="text" id="reviewer-name" name="reviewer_name" class="regular-text" 
@@ -50,26 +50,26 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                                 
                                 <tr>
                                     <th scope="row">
-                                        <label for="reviewer-email"><?php _e('Reviewer Email', 'manual-review-manager'); ?></label>
+                                        <label for="reviewer-email"><?php esc_html_e('Reviewer Email', 'manual-review-manager'); ?></label>
                                     </th>
                                     <td>
                                         <input type="email" id="reviewer-email" name="reviewer_email" class="regular-text" 
                                                value="<?php echo $is_edit ? esc_attr($review->reviewer_email) : ''; ?>" />
-                                        <p class="description"><?php _e('Optional - for your records only, not displayed publicly.', 'manual-review-manager'); ?></p>
+                                        <p class="description"><?php esc_html_e('Optional - for your records only, not displayed publicly.', 'manual-review-manager'); ?></p>
                                     </td>
                                 </tr>
                                 
                                 <tr>
                                     <th scope="row">
-                                        <label for="reviewer-photo"><?php _e('Reviewer Photo URL', 'manual-review-manager'); ?></label>
+                                        <label for="reviewer-photo"><?php esc_html_e('Reviewer Photo URL', 'manual-review-manager'); ?></label>
                                     </th>
                                     <td>
                                         <input type="url" id="reviewer-photo" name="reviewer_photo_url" class="regular-text" 
                                                value="<?php echo $is_edit ? esc_attr($review->reviewer_photo_url) : ''; ?>" />
                                         <button type="button" class="button" id="upload-photo-btn">
-                                            <?php _e('Upload Photo', 'manual-review-manager'); ?>
+                                            <?php esc_html_e('Upload Photo', 'manual-review-manager'); ?>
                                         </button>
-                                        <p class="description"><?php _e('Optional - provide a URL or upload a photo for the reviewer.', 'manual-review-manager'); ?></p>
+                                        <p class="description"><?php esc_html_e('Optional - provide a URL or upload a photo for the reviewer.', 'manual-review-manager'); ?></p>
                                         
                                         <?php if ($is_edit && !empty($review->reviewer_photo_url)): ?>
                                             <div class="mrm-photo-preview">
@@ -83,7 +83,7 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                                 
                                 <tr>
                                     <th scope="row">
-                                        <label for="rating"><?php _e('Rating', 'manual-review-manager'); ?> *</label>
+                                        <label for="rating"><?php esc_html_e('Rating', 'manual-review-manager'); ?> *</label>
                                     </th>
                                     <td>
                                         <div class="mrm-star-rating" id="star-rating">
@@ -94,28 +94,28 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                                         </div>
                                         <input type="hidden" id="rating" name="rating" 
                                                value="<?php echo $is_edit ? $review->rating : '5'; ?>" required />
-                                        <p class="description"><?php _e('Click the stars to set the rating.', 'manual-review-manager'); ?></p>
+                                        <p class="description"><?php esc_html_e('Click the stars to set the rating.', 'manual-review-manager'); ?></p>
                                     </td>
                                 </tr>
                                 
                                 <tr>
                                     <th scope="row">
-                                        <label for="review-text"><?php _e('Review Text', 'manual-review-manager'); ?> *</label>
+                                        <label for="review-text"><?php esc_html_e('Review Text', 'manual-review-manager'); ?> *</label>
                                     </th>
                                     <td>
                                         <textarea id="review-text" name="review_text" rows="8" cols="50" class="large-text" required><?php echo $is_edit ? esc_textarea($review->review_text) : ''; ?></textarea>
-                                        <p class="description"><?php _e('The main review content. You can edit this to change business names or other details.', 'manual-review-manager'); ?></p>
+                                        <p class="description"><?php esc_html_e('The main review content. You can edit this to change business names or other details.', 'manual-review-manager'); ?></p>
                                     </td>
                                 </tr>
                                 
                                 <tr>
                                     <th scope="row">
-                                        <label for="review-date"><?php _e('Review Date', 'manual-review-manager'); ?> *</label>
+                                        <label for="review-date"><?php esc_html_e('Review Date', 'manual-review-manager'); ?> *</label>
                                     </th>
                                     <td>
                                         <input type="date" id="review-date" name="review_date" 
                                                value="<?php echo $is_edit ? $review->review_date : date('Y-m-d'); ?>" required />
-                                        <p class="description"><?php _e('When was this review originally posted?', 'manual-review-manager'); ?></p>
+                                        <p class="description"><?php esc_html_e('When was this review originally posted?', 'manual-review-manager'); ?></p>
                                     </td>
                                 </tr>
                             </table>
@@ -127,17 +127,17 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                 <div class="mrm-form-sidebar">
                     <div class="postbox">
                         <div class="postbox-header">
-                            <h2><?php _e('Review Settings', 'manual-review-manager'); ?></h2>
+                            <h2><?php esc_html_e('Review Settings', 'manual-review-manager'); ?></h2>
                         </div>
                         <div class="inside">
                             <table class="form-table">
                                 <tr>
                                     <th scope="row">
-                                        <label for="location-id"><?php _e('Location', 'manual-review-manager'); ?> *</label>
+                                        <label for="location-id"><?php esc_html_e('Location', 'manual-review-manager'); ?> *</label>
                                     </th>
                                     <td>
                                         <select id="location-id" name="location_id" required>
-                                            <option value=""><?php _e('Select a location...', 'manual-review-manager'); ?></option>
+                                            <option value=""><?php esc_html_e('Select a location...', 'manual-review-manager'); ?></option>
                                             <?php foreach ($locations as $location): ?>
                                                 <option value="<?php echo $location->id; ?>" 
                                                         <?php echo ($is_edit && $review->location_id == $location->id) ? 'selected' : ''; ?>>
@@ -150,50 +150,50 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                                 
                                 <tr>
                                     <th scope="row">
-                                        <label for="platform"><?php _e('Review Source Platform', 'manual-review-manager'); ?> *</label>
+                                        <label for="platform"><?php esc_html_e('Review Source Platform', 'manual-review-manager'); ?> *</label>
                                     </th>
                                     <td>
                                         <select id="platform" name="platform" style="width: 200px;">
                                             <option value="manual" <?php echo (!$is_edit || $review->platform === 'manual') ? 'selected' : ''; ?>>
-                                                <?php _e('📝 Manual Entry', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('📝 Manual Entry', 'manual-review-manager'); ?>
                                             </option>
                                             <option value="google" <?php echo ($is_edit && $review->platform === 'google') ? 'selected' : ''; ?>>
-                                                <?php _e('🟦 Google Reviews', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('🟦 Google Reviews', 'manual-review-manager'); ?>
                                             </option>
                                             <option value="yelp" <?php echo ($is_edit && $review->platform === 'yelp') ? 'selected' : ''; ?>>
-                                                <?php _e('🔴 Yelp Reviews', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('🔴 Yelp Reviews', 'manual-review-manager'); ?>
                                             </option>
                                             <option value="facebook" <?php echo ($is_edit && $review->platform === 'facebook') ? 'selected' : ''; ?>>
-                                                <?php _e('🔵 Facebook Reviews', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('🔵 Facebook Reviews', 'manual-review-manager'); ?>
                                             </option>
                                             <option value="other" <?php echo ($is_edit && $review->platform === 'other') ? 'selected' : ''; ?>>
-                                                <?php _e('⭐ Other Platform', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('⭐ Other Platform', 'manual-review-manager'); ?>
                                             </option>
                                         </select>
                                         <p class="description">
-                                            <strong><?php _e('Important:', 'manual-review-manager'); ?></strong> 
-                                            <?php _e('Select where this review originally came from. This will display a badge (Google, Yelp, etc.) on your website to show the review source.', 'manual-review-manager'); ?>
+                                            <strong><?php esc_html_e('Important:', 'manual-review-manager'); ?></strong> 
+                                            <?php esc_html_e('Select where this review originally came from. This will display a badge (Google, Yelp, etc.) on your website to show the review source.', 'manual-review-manager'); ?>
                                         </p>
                                     </td>
                                 </tr>
                                 
                                 <tr>
-                                    <th scope="row"><?php _e('Status', 'manual-review-manager'); ?></th>
+                                    <th scope="row"><?php esc_html_e('Status', 'manual-review-manager'); ?></th>
                                     <td>
                                         <fieldset>
                                             <label>
                                                 <input type="checkbox" name="is_approved" value="1" 
                                                        <?php echo ($is_edit && $review->is_approved) || !$is_edit ? 'checked' : ''; ?> />
-                                                <?php _e('Approved for display', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('Approved for display', 'manual-review-manager'); ?>
                                             </label><br>
                                             
                                             <label>
                                                 <input type="checkbox" name="is_featured" value="1" 
                                                        <?php echo ($is_edit && $review->is_featured) ? 'checked' : ''; ?> />
-                                                <?php _e('Featured review', 'manual-review-manager'); ?>
+                                                <?php esc_html_e('Featured review', 'manual-review-manager'); ?>
                                             </label>
                                         </fieldset>
-                                        <p class="description"><?php _e('Control visibility and prominence of this review.', 'manual-review-manager'); ?></p>
+                                        <p class="description"><?php esc_html_e('Control visibility and prominence of this review.', 'manual-review-manager'); ?></p>
                                     </td>
                                 </tr>
                             </table>
@@ -203,27 +203,27 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                     <!-- Action Buttons -->
                     <div class="postbox">
                         <div class="postbox-header">
-                            <h2><?php _e('Actions', 'manual-review-manager'); ?></h2>
+                            <h2><?php esc_html_e('Actions', 'manual-review-manager'); ?></h2>
                         </div>
                         <div class="inside">
                             <div class="mrm-actions">
                                 <p class="submit">
                                     <button type="submit" class="button button-primary button-large">
-                                        <?php echo $is_edit ? __('Update Review', 'manual-review-manager') : __('Add Review', 'manual-review-manager'); ?>
+                                        <?php echo $is_edit ? esc_html__('Update Review', 'manual-review-manager') : esc_html__('Add Review', 'manual-review-manager'); ?>
                                     </button>
                                 </p>
                                 
                                 <?php if ($is_edit): ?>
                                     <p>
                                         <button type="button" class="button button-secondary" id="delete-review-btn" data-review-id="<?php echo $review->id; ?>">
-                                            <?php _e('Delete Review', 'manual-review-manager'); ?>
+                                            <?php esc_html_e('Delete Review', 'manual-review-manager'); ?>
                                         </button>
                                     </p>
                                 <?php endif; ?>
                                 
                                 <p>
                                     <a href="<?php echo admin_url('admin.php?page=mrm-reviews'); ?>" class="button">
-                                        <?php _e('Back to Reviews', 'manual-review-manager'); ?>
+                                        <?php esc_html_e('Back to Reviews', 'manual-review-manager'); ?>
                                     </a>
                                 </p>
                             </div>
@@ -234,11 +234,11 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
                         <!-- Original Review Info -->
                         <div class="postbox">
                             <div class="postbox-header">
-                                <h2><?php _e('Original Review', 'manual-review-manager'); ?></h2>
+                                <h2><?php esc_html_e('Original Review', 'manual-review-manager'); ?></h2>
                             </div>
                             <div class="inside">
-                                <p><strong><?php _e('This review has been edited.', 'manual-review-manager'); ?></strong></p>
-                                <p><?php _e('Original text:', 'manual-review-manager'); ?></p>
+                                <p><strong><?php esc_html_e('This review has been edited.', 'manual-review-manager'); ?></strong></p>
+                                <p><?php esc_html_e('Original text:', 'manual-review-manager'); ?></p>
                                 <div class="mrm-original-text">
                                     <?php echo nl2br(esc_html($review->original_review_text)); ?>
                                 </div>
@@ -252,70 +252,6 @@ $page_title = $is_edit ? __('Edit Review', 'manual-review-manager') : __('Add Ne
     <?php endif; ?>
 </div>
 
-<style>
-.mrm-form-container {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.mrm-form-main {
-    min-width: 0;
-}
-
-.mrm-form-sidebar {
-    min-width: 0;
-}
-
-.mrm-star-rating {
-    font-size: 24px;
-    color: #ddd;
-    cursor: pointer;
-    user-select: none;
-}
-
-.mrm-star-rating .mrm-star {
-    transition: color 0.2s ease;
-    margin-right: 2px;
-}
-
-.mrm-star-rating .mrm-star:hover,
-.mrm-star-rating .mrm-star.active {
-    color: #ffa500;
-}
-
-.mrm-star-rating .mrm-star.hover {
-    color: #ffd700;
-}
-
-.mrm-photo-preview {
-    margin-top: 10px;
-}
-
-.mrm-actions {
-    text-align: left;
-}
-
-.mrm-actions .submit {
-    margin-bottom: 10px;
-}
-
-.mrm-original-text {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 4px;
-    border-left: 4px solid #ddd;
-    font-style: italic;
-    color: #666;
-}
-
-@media (max-width: 768px) {
-    .mrm-form-container {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
 
 <script>
 jQuery(document).ready(function($) {
@@ -349,9 +285,9 @@ jQuery(document).ready(function($) {
         e.preventDefault();
         
         const mediaUploader = wp.media({
-            title: '<?php _e('Select Reviewer Photo', 'manual-review-manager'); ?>',
+            title: '<?php esc_js(_e('Select Reviewer Photo', 'manual-review-manager')); ?>',
             button: {
-                text: '<?php _e('Use this photo', 'manual-review-manager'); ?>'
+                text: '<?php esc_js(_e('Use this photo', 'manual-review-manager')); ?>'
             },
             multiple: false
         });
@@ -374,7 +310,7 @@ jQuery(document).ready(function($) {
         
         const $submitBtn = $(this).find('button[type="submit"]');
         const originalText = $submitBtn.text();
-        $submitBtn.text('<?php _e('Saving...', 'manual-review-manager'); ?>').prop('disabled', true);
+        $submitBtn.text('<?php esc_js(_e('Saving...', 'manual-review-manager')); ?>').prop('disabled', true);
         
         $.ajax({
             url: mrm_ajax.ajaxurl,
@@ -390,11 +326,11 @@ jQuery(document).ready(function($) {
                         window.location.href = '<?php echo admin_url('admin.php?page=mrm-add-review&edit='); ?>' + response.data.review_id;
                     }
                 } else {
-                    alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
+                    alert('<?php esc_js(_e('Error: ', 'manual-review-manager')); ?>' + (response.data || '<?php esc_js(_e('Unknown error occurred.', 'manual-review-manager')); ?>'));
                 }
             },
             error: function() {
-                alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
+                alert('<?php esc_js(_e('Network error. Please try again.', 'manual-review-manager')); ?>');
             },
             complete: function() {
                 $submitBtn.text(originalText).prop('disabled', false);
@@ -404,7 +340,7 @@ jQuery(document).ready(function($) {
     
     // Delete review
     $('#delete-review-btn').on('click', function() {
-        if (!confirm('<?php _e('Are you sure you want to delete this review? This action cannot be undone.', 'manual-review-manager'); ?>')) {
+        if (!confirm('<?php esc_js(_e('Are you sure you want to delete this review? This action cannot be undone.', 'manual-review-manager')); ?>')) {
             return;
         }
         
@@ -420,11 +356,11 @@ jQuery(document).ready(function($) {
                 alert(response.data);
                 window.location.href = '<?php echo admin_url('admin.php?page=mrm-reviews'); ?>';
             } else {
-                alert('<?php _e('Error: ', 'manual-review-manager'); ?>' + (response.data || '<?php _e('Unknown error occurred.', 'manual-review-manager'); ?>'));
+                alert('<?php esc_js(_e('Error: ', 'manual-review-manager')); ?>' + (response.data || '<?php esc_js(_e('Unknown error occurred.', 'manual-review-manager')); ?>'));
             }
         })
         .fail(function() {
-            alert('<?php _e('Network error. Please try again.', 'manual-review-manager'); ?>');
+            alert('<?php esc_js(_e('Network error. Please try again.', 'manual-review-manager')); ?>');
         });
     });
 });

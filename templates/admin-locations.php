@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager Locations Template
+ * Review Manager Locations Template
  */
 
 if (!defined('ABSPATH')) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Manual Review Manager Shortcodes Class
+ * Review Manager Shortcodes Class
  */
 
 if (!defined('ABSPATH')) {

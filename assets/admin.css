@@ -1,4 +1,4 @@
-/* Manual Review Manager Admin Styles */
+/* Review Manager Admin Styles */
 
 .mrm-modal {
     z-index: 100000;
@@ -27,5 +27,165 @@
 @media (min-width: 768px) {
     .mrm-form-container {
         grid-template-columns: 2fr 1fr;
+    }
+}
+
+/* Settings page styles */
+.mrm-shortcode-examples {
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.mrm-shortcode-examples h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.mrm-shortcode-examples h3:first-child {
+    margin-top: 0;
+}
+
+.mrm-shortcode-examples code {
+    background: #fff;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    display: block;
+    margin: 5px 0;
+    font-family: monospace;
+}
+
+.mrm-shortcode-examples p {
+    margin: 5px 0 15px 0;
+    color: #666;
+}
+
+.mrm-theme-preview {
+    background: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.mrm-theme-preview h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.mrm-theme-preview h3:first-child {
+    margin-top: 0;
+}
+
+.mrm-preview-container {
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.mrm-preview-container:last-child {
+    margin-bottom: 0;
+}
+
+/* Reviews page styles */
+.mrm-platform {
+    background: #f0f0f0;
+    color: #666;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.mrm-platform-google {
+    background: #4285f4;
+    color: white;
+}
+
+.mrm-platform-yelp {
+    background: #d32323;
+    color: white;
+}
+
+.mrm-platform-manual {
+    background: #0073aa;
+    color: white;
+}
+
+.mrm-platform-user_submitted {
+    background: #50c878;
+    color: white;
+}
+
+/* Button spacing for consistent layout */
+.wp-list-table .button-small {
+    margin-right: 3px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+/* Add/Edit review page styles */
+.mrm-form-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.mrm-form-main {
+    min-width: 0;
+}
+
+.mrm-form-sidebar {
+    min-width: 0;
+}
+
+.mrm-star-rating {
+    font-size: 24px;
+    color: #ddd;
+    cursor: pointer;
+    user-select: none;
+}
+
+.mrm-star-rating .mrm-star {
+    transition: color 0.2s ease;
+    margin-right: 2px;
+}
+
+.mrm-star-rating .mrm-star:hover,
+.mrm-star-rating .mrm-star.active {
+    color: #ffa500;
+}
+
+.mrm-star-rating .mrm-star.hover {
+    color: #ffd700;
+}
+
+.mrm-photo-preview {
+    margin-top: 10px;
+}
+
+.mrm-actions {
+    text-align: left;
+}
+
+.mrm-actions .submit {
+    margin-bottom: 10px;
+}
+
+.mrm-original-text {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #ddd;
+    font-style: italic;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .mrm-form-container {
+        grid-template-columns: 1fr;
     }
 } 

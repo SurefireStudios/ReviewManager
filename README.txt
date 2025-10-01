@@ -1,128 +1,231 @@
-=== Manual Review Manager ===
+=== Review Manager ===
 Contributors: surefirestudios
-Tags: reviews, testimonials, business, locations, manual, multi-location
+Tags: reviews, testimonials, customer reviews, user reviews, review management, business reviews, review display, review slider, review grid
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.1.0
+Tested up to: 6.4
+Requires PHP: 7.4
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Manually manage and display customer reviews from multiple business locations with full editing control and professional display options.
+A comprehensive WordPress plugin for managing and displaying customer reviews with user submission capabilities, multiple display layouts, and complete editorial control.
 
 == Description ==
 
-Manual Review Manager is a WordPress plugin that allows you to manually add, edit, and display customer reviews for your business locations. Perfect for businesses that want complete control over their review content without relying on external APIs.
+**Review Manager** is a powerful WordPress plugin that gives you complete control over your customer reviews. Unlike other review plugins that rely on external APIs, Review Manager lets you manually curate, edit, and display reviews exactly how you want them.
 
-= Key Features =
+= 🌟 Key Features =
 
-* **Manual Review Entry** - Add reviews through the admin interface
-* **Full Editing Control** - Edit any aspect of reviews including text, ratings, and reviewer info
-* **Multi-Location Support** - Manage reviews for multiple business locations
-* **Bulk Text Replacement** - Perfect for changing business names across all reviews
-* **Professional Display Options** - Grid, list, and slider layouts
-* **Responsive Design** - Mobile-friendly display
-* **SEO Optimized** - Includes structured data markup
-* **No API Keys Required** - Completely self-contained
+**User Review Submissions (NEW!)**
+* Allow customers to submit reviews directly on your website
+* User-friendly review submission form with photo uploads
+* Automatic approval workflow for moderation
+* Email notifications for new review submissions
+* Logged-in user requirement for spam prevention
 
-= Display Options =
+**Complete Review Management**
+* Add, edit, and manage reviews through intuitive admin interface
+* Support for multiple business locations
+* Full editorial control - edit any aspect of reviews
+* Bulk text replacement tool for rebranding
+* Import reviews from any source (Google, Yelp, Facebook, etc.)
 
-* **Grid Layout** - Professional grid display with customizable columns
-* **List Layout** - Clean list format perfect for sidebars
-* **Slider Layout** - Rotating review carousel with autoplay options
-* **Review Statistics** - Display average ratings and review counts
-* **Location-Specific** - Show reviews for individual locations
+**Professional Display Options**
+* **Grid Layout** - Clean, responsive grid display
+* **List Layout** - Traditional list format
+* **Review Slider** - Auto-advancing carousel
+* **Grid Slider** - Multi-column sliding display
+* **Review Statistics** - Display totals, averages, and breakdowns
 
-= Perfect For =
+**Advanced Features**
+* Photo upload support for reviewers
+* Platform badges (Google, Yelp, Facebook icons)
+* Star rating system (1-5 stars)
+* Responsive design for all devices
+* SEO optimized with structured data markup
+* Dark/light theme support
+* Customizable button colors
+* Read more/less functionality for long reviews
 
-* Business rebranding (bulk text replacement)
-* Content curation (manually select best reviews)
-* Multi-location businesses
-* Complete content control
-* Avoiding API costs and complexity
-* Adding reviews from any source
+= 🎯 Perfect For =
 
-= Shortcodes =
+* **Service Businesses** - Restaurants, salons, repair shops
+* **E-commerce Stores** - Product testimonials and reviews
+* **Multi-location Businesses** - Manage reviews across locations
+* **Professional Services** - Lawyers, doctors, consultants
+* **Any Business** wanting complete control over review display
 
-* `[review_manager]` - Display reviews with various layout options
-* `[review_slider]` - Rotating review slider
-* `[review_stats]` - Review statistics and ratings breakdown
+= 🚀 User Review Submission Workflow =
+
+1. Add `show_review_button="true"` to any shortcode
+2. Customers click "Leave Your Own Review" button
+3. Users log in (required for spam prevention)
+4. Fill out review form with optional photo upload
+5. Reviews are submitted for admin approval
+6. Admin receives email notification
+7. Approve/reject reviews from admin dashboard
+8. Approved reviews appear on your website
+
+= 📱 Responsive & SEO Friendly =
+
+* Mobile-optimized responsive design
+* Structured data markup for search engines
+* Fast loading with optimized assets
+* Accessibility compliant
+* Translation ready
+
+= 🔧 Easy Setup =
+
+1. Install and activate the plugin
+2. Add your business locations
+3. Start adding reviews or enable user submissions
+4. Use shortcodes to display reviews anywhere
+5. Customize appearance and settings
+
+= 💡 No External Dependencies =
+
+* No API keys required
+* No external service dependencies
+* Complete data ownership
+* Works offline
+* GDPR compliant
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/review-manager/` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress
+1. Upload the plugin files to `/wp-content/plugins/review-manager/` directory
+2. Activate "Review Manager" through the 'Plugins' menu in WordPress
 3. Go to "Review Manager" → "Locations" to add your business locations
-4. Go to "Review Manager" → "Add Review" to start adding reviews
-5. Use shortcodes to display reviews on your pages and posts
+4. Go to "Review Manager" → "Add Review" to start adding reviews manually
+5. Use shortcodes to display reviews on your website
 
 == Frequently Asked Questions ==
 
-= Do I need API keys? =
+= How do I allow customers to submit reviews? =
 
-No! This plugin is completely manual - no API keys required. You add all reviews through the WordPress admin interface.
+Add `show_review_button="true"` to any review shortcode. This will display a "Leave Your Own Review" button that allows logged-in users to submit reviews for approval.
 
-= Can I edit review content? =
+= Can I edit user-submitted reviews? =
 
-Yes, you have complete control over all review content. You can edit reviewer names, review text, ratings, dates, and more.
+Yes! You have complete editorial control. You can edit any aspect of user-submitted reviews including text, ratings, and reviewer information.
 
-= Can I manage multiple locations? =
+= Do I need API keys from Google or Yelp? =
 
-Absolutely! The plugin supports unlimited business locations, each with their own set of reviews.
+No! Review Manager is completely self-contained. You can manually add reviews from any source without needing external API access.
 
-= Can I change business names in all reviews at once? =
+= Can I use this for multiple business locations? =
 
-Yes! The bulk text replacement feature allows you to change text across all reviews simultaneously - perfect for rebranding.
+Absolutely! The plugin is designed for multi-location businesses. You can create separate locations and filter reviews by location.
 
-= What display options are available? =
+= Are the reviews SEO friendly? =
 
-The plugin includes grid, list, and slider layouts, all fully responsive. You can customize columns, number of reviews, minimum ratings, and more.
+Yes! The plugin includes structured data markup (JSON-LD) that helps search engines understand and display your reviews in search results.
 
-= Can I show reviews from different platforms? =
+= Can I customize the appearance? =
 
-Yes, you can manually add reviews from Google, Yelp, Facebook, or any other source. The plugin includes platform badges for display.
+Yes! The plugin includes multiple themes (light, dark, auto), customizable button colors, and responsive layouts. You can also add custom CSS for further customization.
 
 == Screenshots ==
 
-1. Admin dashboard showing review overview
-2. Add new review interface
-3. Location management screen
-4. Review display in grid layout
-5. Review slider on frontend
-6. Settings and bulk replacement tools
+1. Admin dashboard showing review statistics and recent submissions
+2. Review management interface with approval workflow
+3. Add/edit review form with all options
+4. Frontend grid display of reviews with photos and ratings
+5. Review slider carousel in action
+6. User review submission form on frontend
+7. Location management for multi-location businesses
+8. Settings page with theme and display options
+
+== Shortcodes ==
+
+= Basic Display =
+`[review_manager]` - Display reviews with default settings
+`[review_manager layout="grid" columns="3" max_reviews="12"]` - 3-column grid with 12 reviews
+`[review_manager layout="list" max_reviews="5"]` - List layout with 5 reviews
+
+= Review Slider =
+`[review_slider autoplay="true" speed="3000"]` - Auto-advancing slider
+`[review_slider arrows="true" dots="true"]` - Slider with navigation
+
+= Grid Slider =
+`[review_grid_slider columns="3" autoplay="true"]` - Multi-column sliding display
+
+= Review Statistics =
+`[review_stats show_breakdown="true"]` - Display review statistics with rating breakdown
+
+= User Submissions =
+`[review_manager show_review_button="true"]` - Enable user review submissions
+
+= Location Specific =
+`[review_manager location_id="1" show_review_button="true"]` - Reviews for specific location with submission
+
+== Shortcode Parameters ==
+
+**Common Parameters:**
+* `layout` - "grid", "list", "slider" (default: "grid")
+* `columns` - Number of columns for grid layout (default: 3)
+* `max_reviews` - Maximum reviews to display (default: 10)
+* `min_rating` - Minimum star rating to show (default: 1)
+* `location_id` - Show reviews for specific location only
+* `platform` - Filter by platform: "google", "yelp", "facebook", etc.
+* `show_photos` - Show reviewer photos: "true"/"false" (default: "true")
+* `show_dates` - Show review dates: "true"/"false" (default: "true")
+* `show_platform` - Show platform badges: "true"/"false" (default: "true")
+* `show_review_button` - Enable user submissions: "true"/"false" (default: "false")
+* `theme` - Force theme: "light", "dark", "auto"
+* `photo_size` - Photo size: "small", "large" (default: "small")
+
+**Slider Parameters:**
+* `autoplay` - Auto-advance slides: "true"/"false" (default: "true")
+* `speed` - Autoplay speed in milliseconds (default: 5000)
+* `arrows` - Show navigation arrows: "true"/"false" (default: "true")
+* `dots` - Show navigation dots: "true"/"false" (default: "true")
 
 == Changelog ==
 
+= 1.2.0 =
+* NEW: User review submission system with approval workflow
+* NEW: Frontend review submission form with photo uploads
+* NEW: Admin email notifications for new review submissions
+* NEW: User management and tracking for submitted reviews
+* NEW: Enhanced responsive design and mobile optimization
+* NEW: Grid slider layout for multi-column sliding displays
+* NEW: Improved theme system with auto-detection
+* NEW: Customizable button colors and styling options
+* IMPROVED: Better photo handling and optimization
+* IMPROVED: Enhanced security with proper escaping and nonces
+* IMPROVED: Code optimization and WordPress standards compliance
+* FIXED: Various UI improvements and bug fixes
+
 = 1.1.0 =
+* Added review slider functionality
+* Improved responsive design
+* Added platform badges for review sources
+* Enhanced admin interface
+* Added bulk text replacement tool
+* Improved SEO with structured data
+
+= 1.0.0 =
 * Initial release
-* Manual review entry system
+* Basic review management functionality
+* Grid and list display layouts
 * Multi-location support
-* Grid, list, and slider layouts
-* Bulk text replacement functionality
-* SEO structured data
-* Responsive design
 * Admin interface for review management
 
 == Upgrade Notice ==
 
-= 1.1.0 =
-Initial release of Manual Review Manager plugin.
-
-== Shortcode Examples ==
-
-= Basic Display =
-`[review_manager]`
-`[review_manager layout="grid" columns="3" max_reviews="12"]`
-`[review_manager layout="list" max_reviews="5" min_rating="4"]`
-
-= Review Slider =
-`[review_slider autoplay="true" speed="3000"]`
-
-= Statistics =
-`[review_stats show_breakdown="true"]`
-
-= Location-Specific =
-`[review_manager location_id="1" layout="list"]`
+= 1.2.0 =
+Major update with user review submission capabilities! Users can now submit reviews directly on your website. Includes enhanced security, better responsive design, and new display options. Backup recommended before upgrading.
 
 == Support ==
 
-For support and documentation, visit [Surefire Studios](https://surefirestudios.io).
+For support, documentation, and feature requests, please visit our [GitHub repository](https://github.com/SurefireStudios/ReviewManager) or contact us through [Surefire Studios](https://surefirestudios.io/).
+
+== Privacy Policy ==
+
+This plugin stores review data in your WordPress database. When users submit reviews, we collect:
+- Name and email address (required)
+- Review text and rating (required)
+- Optional profile photo
+- User ID for logged-in users
+
+No data is sent to external services. All data remains on your server and is subject to your website's privacy policy.
